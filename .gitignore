@@ -620,9 +620,17 @@ FodyWeavers.xsd
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij,eclipse,visualstudio,visualstudiocode,java
 
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Eclipse
+.settings/
 .classpath
 .project
+.factorypath
 .gitignore
-
-
 
