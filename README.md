@@ -28,7 +28,10 @@ BOJ 그룹 (https://www.acmicpc.net/group/18461)
 
 
 상세설명 :
+<br>
 [Eclipse로 시작하기 튜토리얼](./docs/GETTING_STARTED.md)
+<br>
+[PR 가이드](./docs/PULL_REQUESTS_GUIDE.md)
 
 <br>
 
