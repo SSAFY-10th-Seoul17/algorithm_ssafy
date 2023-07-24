@@ -634,3 +634,4 @@ FodyWeavers.xsd
 .factorypath
 .gitignore
 
+.DS_Store
