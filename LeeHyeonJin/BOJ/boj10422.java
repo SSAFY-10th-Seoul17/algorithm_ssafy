@@ -17,8 +17,8 @@ public class boj10422 {
 			count = 0;
 
 			// solution
-			getString(1, new StringBuffer("("));
-			bw.write(count%1000000007+"");
+			getString(1, "(");
+			bw.write(count%1000000007+"\n");
 		}
 
 		// output
@@ -27,18 +27,19 @@ public class boj10422 {
 	}
 
 	// 문자열 만들기 메서드 + 확인
-	static void getString(int index, StringBuffer str) {
+	static void getString(int index, String str) {
 		if(index == n) {
 			if(isPossible(str)) {
 				count++;
 			}
+			return;
 		}
-		getString(index+1, str.append("("));
-		getString(index+1, str.append(")"));
+		getString(index+1, str.concat("("));
+		getString(index+1, str.concat(")"));
 	}
 
 	// 올바른 문자열인지 확인하는 메서드
-	static boolean isPossible(StringBuffer str) {
+	static boolean isPossible(String str) {
 		Stack<Character> s = new Stack<>();
 		for(int i=0; i<str.length(); i++) {
 			char c = str.charAt(i);
