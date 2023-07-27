@@ -33,9 +33,13 @@ BOJ 그룹 (https://www.acmicpc.net/group/18461)
 
 1. [Eclipse로 시작하기 튜토리얼](.docs/GETTING_STARTED.md)
 <br>
+
 2. [IntelliJ로 시작하기 튜토리얼](.docs/GETTING_STARTED_intellJ.md)
 <br>
+
 3. [PR 가이드](.docs/PULL_REQUESTS_GUIDE.md)
+<br>
+
 4. [코드리뷰 가이드](.docs/CODE_REVIEW_GUIDE.md)
 
 <br>
