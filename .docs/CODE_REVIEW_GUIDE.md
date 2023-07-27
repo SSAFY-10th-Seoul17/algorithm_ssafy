@@ -4,10 +4,8 @@
 
 [Labels](#Labels)
 <br>
-
 [코멘트](#코멘트)
 <br>
-
 [Approve](#Approve)
 --- 
 
