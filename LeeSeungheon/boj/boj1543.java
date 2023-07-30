@@ -29,4 +29,4 @@ public class boj1543 {
 
         System.out.println(count);
     }
-}
+}//
