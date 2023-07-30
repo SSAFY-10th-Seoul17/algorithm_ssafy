@@ -45,10 +45,7 @@ public class BOJ17484 {
 		
 		// 첫 줄 초기화
 		for (int i=0; i<m; i++) {
-			dp[0][i][0] = graph[0][i];
-			dp[0][i][1] = graph[0][i];
-			dp[0][i][2] = graph[0][i];
-			
+			dp[0][i][0] = dp[0][i][1] = dp[0][i][2] = graph[0][i];
 		}
 		
 		// dp 초기화
