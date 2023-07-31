@@ -16,7 +16,7 @@ public class boj10422 {
             dp = new long[L+1];
             System.out.println(solve(L) % 1_000_000_007);
         }
-    }////////
+    }
 
     private static long solve(int L) {
 
