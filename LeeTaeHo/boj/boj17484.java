@@ -15,9 +15,7 @@ public class boj17484 {
 			st = new StringTokenizer(br.readLine());
 			for(int j = 0; j < m; j++) {
 				map[i][j] = Integer.parseInt(st.nextToken());
-				dp[i][j][0] = Integer.MAX_VALUE;
-				dp[i][j][1] = Integer.MAX_VALUE;
-				dp[i][j][2] = Integer.MAX_VALUE;
+				Arrays.fill(dp[i][j], Integer.MAX_VALUE);
 			}
 		}
 		
