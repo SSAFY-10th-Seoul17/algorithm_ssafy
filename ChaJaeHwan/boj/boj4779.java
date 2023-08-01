@@ -1,5 +1,3 @@
-package ChaJaeHwan.boj;
-
 import java.io.*;
 import java.util.Arrays;
 
