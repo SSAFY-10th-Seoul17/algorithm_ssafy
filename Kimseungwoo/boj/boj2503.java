@@ -26,7 +26,6 @@ class Baseball {
 		
 		while (i < curNum.size()) {
 			String s = curNum.get(i);
-//			System.out.println(s);
 			int st_count = 0;
 			int ball_count = 0;
 			for(int j = 0; j<3; j++) {
@@ -48,7 +47,6 @@ class Baseball {
 			i += 1;
 		}
 		ans = curNum;
-		//System.out.println("size : " + curNum.size());
 	}
 }
 
@@ -67,7 +65,6 @@ public class boj2503 {
 			Baseball.check(s.split(" ")[0], Integer.parseInt(s.split(" ")[1])
 					, Integer.parseInt(s.split(" ")[2]));
 		}
-//		System.out.println(Baseball.ans);
 		System.out.println(Baseball.ans.size());		
 		
 	}

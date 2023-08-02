@@ -7,7 +7,6 @@ class Hanoi {
 	static StringBuilder sb = new StringBuilder();
 	
 	public static void hanoi(int seq, int from, int to, int via) {
-//		total = total.add(BigInteger.ONE);
 		if(seq == 1) {
 			move(from, to);
 			return;
@@ -37,7 +36,5 @@ public class boj11729 {
 		}
 		System.out.println(k-1);
 		System.out.println(Hanoi.sb.toString());
-//		Hanoi.sb = Hanoi.sb.delete(Hanoi.sb.length()-2, Hanoi.sb.length());
-//		System.out.println("hi");
 	}
 }
