@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class Main {
+public class boj10422 {
 	static final long lim = 1000000007L;
 	static int n;
 	static long[] dp;
