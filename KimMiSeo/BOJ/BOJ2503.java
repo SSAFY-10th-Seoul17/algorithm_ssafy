@@ -18,13 +18,13 @@ public class BOJ2503 {
 		question = new int[n][3];
 		for (int i=0; i<n; i++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
-			int q = Integer.parseInt(st.nextToken());
-			int strike = Integer.parseInt(st.nextToken());
-			int ball = Integer.parseInt(st.nextToken());
+//			int q = Integer.parseInt(st.nextToken());
+//			int strike = Integer.parseInt(st.nextToken());
+//			int ball = Integer.parseInt(st.nextToken());
 			
-			question[i][0] = q;
-			question[i][1] = strike;
-			question[i][2] = ball;
+			question[i][0] = Integer.parseInt(st.nextToken());
+			question[i][1] = Integer.parseInt(st.nextToken());
+			question[i][2] = Integer.parseInt(st.nextToken());
 		}
 		
 		// 중복되지 않게 3자리수 모두 구하기 - 순열
@@ -35,7 +35,9 @@ public class BOJ2503 {
 					if (j==g || k==g) continue;
 					
 					int num = 100*j+10*k+g;
-					isCo(num);
+					if(isCo(num)) {
+						result++;
+					}
 				}
 			}
 		}
@@ -44,7 +46,7 @@ public class BOJ2503 {
 	}
 	
 	// 결과가 모두 맞는 지 체크하는 함수 
-	private static void isCo(int num) {
+	private static boolean isCo(int num) {
 		boolean flag = true;
 		for (int i=0; i<question.length; i++) {
 			int[] qnum = numToArray(question[i][0]);
@@ -71,13 +73,13 @@ public class BOJ2503 {
 			
 			if (s!= strike || b!= ball) {
 				flag = false;
-				break;
+				return flag;
+				
 			}
 			
-			
 		}
-		
-		if (flag) result++;
+		return flag;
+//		if (flag) result++;
 	}
 	
 	// 숫자를 배열로 바꿔주는 함수 ex) 123 -> [1,2,3]
