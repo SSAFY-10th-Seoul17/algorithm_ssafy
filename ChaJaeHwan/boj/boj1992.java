@@ -1,5 +1,3 @@
-package ChaJaeHwan.boj;
-
 import java.io.*;
 
 public class boj1992 {
