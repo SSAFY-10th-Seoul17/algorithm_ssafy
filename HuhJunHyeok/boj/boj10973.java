@@ -27,7 +27,7 @@ public class boj10973 {
     }
 
     /**
-     * 이전 수열(PrevPermutation) 찾기
+     * 이전 순열(PrevPermutation) 찾기
      */
     public static void prevPermutation() {
 /*
@@ -48,7 +48,7 @@ public class boj10973 {
             i--;
         }
 
-        if(i <= 0) { // 주어진 수열이 첫번째 순열인 경우
+        if(i <= 0) { // 주어진 순열이 첫번째 순열인 경우
             sb.append(-1).append("\n");
             return;
         }
