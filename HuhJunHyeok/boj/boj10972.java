@@ -27,7 +27,7 @@ public class boj10972 {
     }
 
     /**
-     * 다음 수열(NextPermutation) 찾기
+     * 다음 순열(NextPermutation) 찾기
      */
     public static void nextPermutation() {
 /*
@@ -46,7 +46,7 @@ public class boj10972 {
             i--;
         }
 
-        if(i <= 0) { // 주어진 수열이 마지막 순열인 경우
+        if(i <= 0) { // 주어진 순열이 마지막 순열인 경우
             sb.append(-1).append("\n");
             return;
         }
