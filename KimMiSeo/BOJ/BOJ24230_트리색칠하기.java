@@ -33,6 +33,9 @@ public class BOJ24230_트리색칠하기 {
 		for (int i=0; i<n; i++) {
 			dfs(i);
 		}
+		if (colors[0] != 0) {
+		      count++;
+		}
 		
 		System.out.println(count);				
 	}
