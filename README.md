@@ -62,6 +62,10 @@ BOJ 그룹 (https://www.acmicpc.net/group/18461)
 
 4. [코드리뷰 가이드](.docs/CODE_REVIEW_GUIDE.md)
 
+
+5. [본인 폴더만 Clone 하기](.docs/Only_My_Folder_Clone_Guide.md)
+
+
 <br>
 
 ### 진행방식
