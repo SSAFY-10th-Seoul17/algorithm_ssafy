@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class BJ2210 {
+public class boj2210 {
 
     private static int[][] arr;
 	private static ArrayList<String> list;
