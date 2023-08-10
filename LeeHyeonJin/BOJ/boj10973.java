@@ -64,3 +64,4 @@ public class boj10973 {
 		return nums;
 	}
 }
+

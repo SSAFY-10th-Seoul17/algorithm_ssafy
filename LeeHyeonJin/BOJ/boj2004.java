@@ -31,3 +31,4 @@ public class boj2004 {
 		return cnt;
 	}
 }
+
