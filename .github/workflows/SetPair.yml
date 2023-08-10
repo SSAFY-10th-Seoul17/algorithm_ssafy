@@ -1,0 +1,78 @@
+name: Set Random Pair
+
+on:
+  schedule:
+    - cron: '0 9 * * 4'
+
+env:
+  MEMBERS: ${{ secrets.MEMBER }}
+  ONLINE_MEMBERS: ${{ secrets.ONLINE }}
+
+jobs:
+  check-changes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create teams and send to webhook
+        run: |
+          IFS=' ' read -r -a ALL_MEMBERS <<< "$MEMBERS"  # change this line
+          IFS=' ' read -r -a ONLINE <<< "$ONLINE_MEMBERS"  # add this line
+
+
+          NAMES=()
+          for member in "${ALL_MEMBERS[@]}"; do
+            if [[ ! " ${ONLINE[@]} " =~ " ${member} " ]]; then
+              NAMES+=("$member")
+            fi
+          done
+          
+          MAX_TEAM_SIZE=4
+          COLUMN_SIZE=5
+          TEAM_COUNT=$(( ${#NAMES[@]} / ($MAX_TEAM_SIZE - 1) ))
+
+
+          NEXT_WEEK_DATE=$(date --date="next week" +%-m)
+          NEXT_WEEK_NUM=$(($(date -d "next week" "+%U") + 1))
+          
+          
+          if [ $NEXT_WEEK_DATE -eq 8 ] && [ $NEXT_WEEK_NUM -eq 35 ]; then
+            NEXT_WEEK_NUM=5
+          else
+            NEXT_WEEK_NUM=$(($NEXT_WEEK_NUM % 4 + 1))
+          fi
+          
+          MESSAGE="\"| Pair |$NEXT_WEEK_DATE 월 | $NEXT_WEEK_NUM 주차 ||| 비고 |\\n"
+          MESSAGE+="|---|---|---|---|---|---|\\n"
+          for ((i=1; i<=$TEAM_COUNT; i++))
+            do
+              MESSAGE+="|$i.|"
+              for ((j=1; j<=$MAX_TEAM_SIZE && ${#NAMES[@]} > 0; j++))
+                do
+          
+                  INDEX=$(( RANDOM % ${#NAMES[@]} ))
+                  MESSAGE+=" ${NAMES[$INDEX]} |"
+                  NAMES=(${NAMES[@]:0:$INDEX} ${NAMES[@]:$(( $INDEX + 1 ))})
+                done
+          
+              for ((j=1; j<=$COLUMN_SIZE - $MAX_TEAM_SIZE; j++))
+                do
+                  MESSAGE+=" |"
+                done
+              MESSAGE+="\\n"
+          
+              if (( ${#NAMES[@]} % (($MAX_TEAM_SIZE - 1) * ( $TEAM_COUNT - $i)) == 0 )); then
+                MAX_TEAM_SIZE=$(( MAX_TEAM_SIZE - 1 ))
+              fi
+            done
+          
+          MESSAGE+="||"
+          for ((i=0; i<$COLUMN_SIZE -1 ; i++))
+          do
+            if (( i > ${#ONLINE[@]} )); then
+              MESSAGE+="|"
+            else
+              MESSAGE+="${ONLINE[$i]}|"
+            fi
+          done
+          MESSAGE+="온라인|\\n\""
+          
+          curl -X POST -H 'Content-type: application/json' --data "{\"text\": $MESSAGE}" ${{ secrets.WEBHOOK }}
