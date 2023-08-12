@@ -44,3 +44,4 @@ public class boj10974 {
 		}
 	}
 }
+
