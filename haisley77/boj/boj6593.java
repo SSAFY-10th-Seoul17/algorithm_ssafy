@@ -14,7 +14,6 @@ public class boj6593 {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
-		
 		xx:
 		while (true) {
 			StringTokenizer st = new StringTokenizer(br.readLine(), " ");
@@ -29,7 +28,6 @@ public class boj6593 {
 			dp = new int[L][R][C];
 
 			int[] S = new int[3];
-			int[] E = new int[3];
 			for (int i = 0; i < L; i++) {
 				for (int j = 0; j < R; j++) {
 					String s = br.readLine();
@@ -38,18 +36,11 @@ public class boj6593 {
 						S[1] = j;
 						S[2] = s.indexOf('S');
 					}
-					if (s.contains("E")) {
-						E[0] = i;
-						E[1] = j;
-						E[2] = s.indexOf('E');
-					}
 					building[i][j] = s.toCharArray();
 				}
 				br.readLine();// 각 층 사이 빈 줄 제거
 			} 
-			
-			
-			
+	
 			Queue<int[]> q = new LinkedList<>();
 			q.offer(S);
 			visited[S[0]][S[1]][S[2]] = true;
@@ -80,16 +71,10 @@ public class boj6593 {
 						}
 					}
 				}
-
 			}
-			
 			sb.append("Trapped!\n");
-		
-			
-			
 		}
-		
 		System.out.println(sb.toString());
 	}
-
+	
 }
