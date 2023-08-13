@@ -37,12 +37,12 @@ public class boj17086 {
             }
         }
 
-        dfs();
+        bfs();
 
         System.out.println(maxSafeDistance);
     }
 
-    public static void dfs() {
+    public static void bfs() {
         while(!queue.isEmpty()) {
             int[] now = queue.poll();
             int nowX = now[0];
