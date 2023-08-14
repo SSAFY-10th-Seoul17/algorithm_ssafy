@@ -1,76 +1,71 @@
 package boj;
 
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
+
+/*
+ * 5×5 크기의 숫자판이 있다. 각각의 칸에는 숫자(digit, 0부터 9까지)가 적혀 있다.
+ * 이 숫자판의 임의의 위치에서 시작해서, 인접해 있는 네 방향으로 다섯 번 이동하면서, 
+ * 각 칸에 적혀있는 숫자를 차례로 붙이면 6자리의 수가 된다. 
+ * 이동을 할 때에는 한 번 거쳤던 칸을 다시 거쳐도 되며, 
+ * 0으로 시작하는 000123과 같은 수로 만들 수 있다.
+ * 
+ * */
 public class boj2210 {
-
-    static int F,S,G,U,D;
-    /*
-    * F : total floor
-    * G : Destination
-    * S : current location
-    * U : up floor
-    * D : down floor
-    */
-    static int[] floor;
-    static int[] dx;
-
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-
-        F = Integer.parseInt(st.nextToken());
-        S = Integer.parseInt(st.nextToken());
-        G = Integer.parseInt(st.nextToken());
-        U = Integer.parseInt(st.nextToken());
-        D = Integer.parseInt(st.nextToken());
-
-        if(G == S){
-            System.out.println(0);
-            return;
-        }
-
-        floor = new int[F+1];
-        floor[S] = 1;
-        dx = new int[2];
-        dx[0] = U;
-        dx[1] = D*-1;
-
-        bfs(S);
-        //System.out.println(Arrays.toString(floor));
-        if(floor[G] == 0){
-            System.out.println("use the stairs");
-        } else {
-            System.out.println(floor[G]-1);
-        }
-    }
-
-    private static void bfs(int start){
-        Queue<Integer> q = new ArrayDeque<>();
-
-        q.offer(start);
-
-        while (!q.isEmpty()){
-            int cur = q.poll();
-
-            if(cur == G) return;
-
-            for(int i = 0; i<2; i++){
-                int nx = cur + dx[i];
-                if(!isPossible(nx)){
-                    continue;
-                }
-                floor[nx] = floor[cur]+1;
-                q.offer(nx);
-            }
-        }
-    }
-
-    private static boolean isPossible(int x){
-        if(x < 1 || x > F || floor[x] > 0){
-            return false;
-        }
-        return true;
-    }
+	
+	private static HashSet<String> hSet = new HashSet<>();
+	
+	private static int[] dx = {-1, 0, 1, 0};
+	private static int[] dy = {0, -1, 0, 1};
+	
+	private static int[][] map;
+	
+	public static void main(String[] args) throws IOException {
+		map = new int[5][5];
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		for(int i = 0; i<5; i++) {
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			for(int j = 0; j < 5; j++) {
+				map[i][j] = Integer.parseInt(st.nextToken());
+			}
+		}
+		
+		
+		
+		for(int i = 0; i < 5; i++) {
+			for(int j = 0; j<5; j++) {
+				dfs(i, j, new String(map[i][j] + ""));
+			}
+		}
+		
+		System.out.println(hSet.size());
+	}
+	
+	private static void dfs(int x, int y, String s) {
+		if (s.length() == 6) {
+			hSet.add(s);
+			return;
+		}
+		
+		for(int i = 0; i<4; i++) {
+			int nx = x + dx[i];
+			int ny = y + dy[i];
+			
+			if(!isPossible(nx, ny)) {
+				continue;
+			}
+			dfs(nx, ny, s+map[nx][ny]);
+		}
+		
+	}
+	
+	private static boolean isPossible(int x, int y) {
+		if(x < 0 || y < 0 || x >= 5 || y >= 5) {
+			return false;
+		}
+		return true;
+	}
 }
