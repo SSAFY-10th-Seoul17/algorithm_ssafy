@@ -60,3 +60,4 @@ public class boj1325 {
 		bw.close();
 	}
 }
+
