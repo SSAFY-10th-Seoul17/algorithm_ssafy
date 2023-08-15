@@ -12,16 +12,18 @@ public class Main {
             arr[i] = Integer.parseInt(st.nextToken());
         }
         dp = new int[n+1];
+        int result = 0;
         for(int i=1; i<=n; i++) {
             dp[i] = searchLIS(i) + 1;
+            result = Math.max(result, dp[i]);
         }
-        System.out.println(n - Arrays.stream(dp).max().getAsInt());
+        System.out.println(n - result);
         br.close();
     }
 
     public static int searchLIS(int end) {
         int max = 0;
-        for (int i = 1; i < end; i++) {
+        for (int i = end - 1; i >= 0; i--) {
             if(max >= i) break;
             if(arr[i] > arr[end]) max = Math.max(max, dp[i]);
         }
