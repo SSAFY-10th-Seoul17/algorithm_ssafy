@@ -17,8 +17,8 @@ jobs:
     steps:
       - name: Create teams and send to webhook
         run: |
-          IFS=' ' read -r -a ALL_MEMBERS <<< "$MEMBERS"  # change this line
-          IFS=' ' read -r -a ONLINE <<< "$ONLINE_MEMBERS"  # add this line
+          IFS=' ' read -r -a ALL_MEMBERS <<< "$MEMBERS" 
+          IFS=' ' read -r -a ONLINE <<< "$ONLINE_MEMBERS"
 
 
           NAMES=()
@@ -31,7 +31,7 @@ jobs:
           MAX_TEAM_SIZE=4
           COLUMN_SIZE=5
           TEAM_COUNT=$(( ${#NAMES[@]} / ($MAX_TEAM_SIZE - 1)))
-          TEAM4_COUNT = $(( ${#NAMES[@]} % ($MAX_TEAM_SIZE - 1)))
+          TEAM4_COUNT=$(( ${#NAMES[@]} % ($MAX_TEAM_SIZE - 1)))
 
           NEXT_WEEK_DATE=$(date --date="next week" +%-m)
           NEXT_WEEK_NUM=$(($(date -d "next week" "+%U") + 1))
