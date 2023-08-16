@@ -65,16 +65,26 @@ jobs:
                 MAX_TEAM_SIZE=$(( MAX_TEAM_SIZE - 1 ))
               fi
             done
-          
-          MESSAGE+="||"
-          for ((i=0; i<$COLUMN_SIZE -1 ; i++))
-          do
-            if (( i > ${#ONLINE[@]} )); then
-              MESSAGE+="|"
-            else
-              MESSAGE+="${ONLINE[$i]}|"
-            fi
+
+
+
+
+          while [[ ${#ONLINE[@]} -ne 0 ]]; do
+
+            MESSAGE+="||"
+            for ((i=0; i<$COLUMN_SIZE -1 ; i++))
+            do
+              if (( i > ${#ONLINE[@]} )); then
+                MESSAGE+="|"
+              else
+                MESSAGE+="${ONLINE[0]}|"
+                unset ONLINE[0]
+                ONLINE=("${ONLINE[@]}")
+              fi
+            done
+            MESSAGE+="온라인|\\n\""
           done
-          MESSAGE+="온라인|\\n\""
+          
+          
           
           curl -X POST -H 'Content-type: application/json' --data "{\"text\": $MESSAGE}" ${{ secrets.WEBHOOK }}
