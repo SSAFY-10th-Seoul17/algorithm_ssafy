@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - GithubActions_test
+      
 env:
   MEMBERS: ${{ secrets.MEMBER }}
   ONLINE_MEMBERS: ${{ secrets.ONLINE }}
@@ -16,8 +17,8 @@ jobs:
     steps:
       - name: Create teams and send to webhook
         run: |
-          IFS=' ' read -r -a ALL_MEMBERS <<< "$MEMBERS"
-          IFS=' ' read -r -a ONLINE <<< "$ONLINE_MEMBERS"
+          IFS=' ' read -r -a ALL_MEMBERS <<< "$MEMBERS"  # change this line
+          IFS=' ' read -r -a ONLINE <<< "$ONLINE_MEMBERS"  # add this line
 
 
           NAMES=()
@@ -29,8 +30,8 @@ jobs:
           
           MAX_TEAM_SIZE=4
           COLUMN_SIZE=5
-          TEAM_COUNT=$(( ${#NAMES[@]} / ($MAX_TEAM_SIZE - 1)))
-          TEAM4_COUNT=$(( ${#NAMES[@]} % ($MAX_TEAM_SIZE - 1)))
+          TEAM_COUNT=$(( ${#NAMES[@]} / ($MAX_TEAM_SIZE - 1) ))
+
 
           NEXT_WEEK_DATE=$(date --date="next week" +%-m)
           NEXT_WEEK_NUM=$(($(date -d "next week" "+%U") + 1))
@@ -47,47 +48,34 @@ jobs:
           for ((i=1; i<=$TEAM_COUNT; i++))
             do
               MESSAGE+="|$i.|"
-              TEAM_MEMBER_COUNT=0;
-              echo "111"
-              for ((j=1; j<$MAX_TEAM_SIZE && ${#NAMES[@]} > 0; j++))
+              for ((j=1; j<=$MAX_TEAM_SIZE && ${#NAMES[@]} > 0; j++))
                 do
-                  TEAM_MEMBER_COUNT=$((TEAM_MEMBER_COUNT + 1))
-                  echo "123"
+          
                   INDEX=$(( RANDOM % ${#NAMES[@]} ))
                   MESSAGE+=" ${NAMES[$INDEX]} |"
-                  NAMES=(${NAMES[@]:0:$INDEX} ${NAMES[@]:$($INDEX + 1)})
+                  NAMES=(${NAMES[@]:0:$INDEX} ${NAMES[@]:$(( $INDEX + 1 ))})
                 done
-
-              if (($TEAM4_COUNT > 0 )); then
-                TEAM_MEMBER_COUNT=$((TEAM_MEMBER_COUNT + 1))
-                TEAM4_COUNT=$((TEAM4_COUNT - 1))
-                INDEX=$(( RANDOM % ${#NAMES[@]} ))
-                MESSAGE+=" ${NAMES[$INDEX]} |"
-                NAMES=(${NAMES[@]:0:$INDEX} ${NAMES[@]:$($INDEX + 1)})
-              fi
           
-              for ((j=1; j<=(($COLUMN_SIZE - $TEAM_MEMBER_COUNT)); j++))
+              for ((j=1; j<=$COLUMN_SIZE - $MAX_TEAM_SIZE; j++))
                 do
                   MESSAGE+=" |"
                 done
-              
               MESSAGE+="\\n"
-        
+          
+              if (( ${#NAMES[@]} % (($MAX_TEAM_SIZE - 1) * ( $TEAM_COUNT - $i)) == 0 )); then
+                MAX_TEAM_SIZE=$(( MAX_TEAM_SIZE - 1 ))
+              fi
             done
-
-
-          # while [[ ${#ONLINE[@]} -ne 0 ]]; do
-          #   MESSAGE+="||"
-          #   for ((i=0; i<$COLUMN_SIZE -1 ; i++))
-          #   do
-          #     if (( ${#ONLINE[@]} -ne 0 )); then
-          #       MESSAGE+="${ONLINE[0]}|"
-          #       ONLINE=("${ONLINE[@]:1}")
-          #     else
-          #       MESSAGE+="|"
-          #     fi
-          #   done
-          #   MESSAGE+="온라인|\\n\""
-          # done
+          
+          MESSAGE+="||"
+          for ((i=0; i<$COLUMN_SIZE -1 ; i++))
+          do
+            if (( i > ${#ONLINE[@]} )); then
+              MESSAGE+="|"
+            else
+              MESSAGE+="${ONLINE[$i]}|"
+            fi
+          done
+          MESSAGE+="온라인|\\n\""
           
           curl -X POST -H 'Content-type: application/json' --data "{\"text\": $MESSAGE}" ${{ secrets.WEBHOOK }}
