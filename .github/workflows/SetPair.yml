@@ -52,6 +52,7 @@ jobs:
               for ((j=1; j< $MAX_TEAM_SIZE && ${#NAMES[@]} > 0; j++))
                 do
                   ((TEAM_MEMBER_COUNT++))
+                  echo "$TEAM_MEMBER_COUNT and MAX TEAM = $MAX_TEAM_SIZE"
                   INDEX=$(( RANDOM % ${#NAMES[@]} ))
                   MESSAGE+=" ${NAMES[$INDEX]} |"
                   NAMES=(${NAMES[@]:0:$INDEX} ${NAMES[@]:$($INDEX + 1)})
