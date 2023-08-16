@@ -48,7 +48,7 @@ jobs:
           for ((i=1; i<=$TEAM_COUNT; i++))
             do
               MESSAGE+="|$i.|"
-              TEAM_MEMBER_COUNT = 0;
+              TEAM_MEMBER_COUNT=0;
               for ((j=1; j< $MAX_TEAM_SIZE && ${#NAMES[@]} > 0; j++))
                 do
                   ((TEAM_MEMBER_COUNT++))
