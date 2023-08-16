@@ -76,7 +76,7 @@ jobs:
 
 
           while [[ ${#ONLINE[@]} -ne 0 ]]; do
-
+  
             MESSAGE+="||"
             for ((i=0; i<$COLUMN_SIZE -1 ; i++))
             do
@@ -84,8 +84,7 @@ jobs:
                 MESSAGE+="|"
               else
                 MESSAGE+="${ONLINE[0]}|"
-                unset ONLINE[0]
-                ONLINE=("${ONLINE[@]}")
+                ONLINE=("${ONLINE[@]:1}")
               fi
             done
             MESSAGE+="온라인|\\n\""
