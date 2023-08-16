@@ -1,6 +1,5 @@
 name: Set Random Pair
 
-
 on:
   schedule:
     - cron: '0 9 * * 4'
@@ -17,7 +16,7 @@ jobs:
     steps:
       - name: Create teams and send to webhook
         run: |
-          IFS=' ' read -r -a ALL_MEMBERS <<< "$MEMBERS" 
+          IFS=' ' read -r -a ALL_MEMBERS <<< "$MEMBERS"
           IFS=' ' read -r -a ONLINE <<< "$ONLINE_MEMBERS"
 
 
@@ -49,6 +48,7 @@ jobs:
             do
               MESSAGE+="|$i.|"
               TEAM_MEMBER_COUNT=0;
+              echo "$TEAM_MEMBER_COUNT and $ $TEAM4_COUNT"
               for ((j=1; j< $MAX_TEAM_SIZE && ${#NAMES[@]} > 0; j++))
                 do
                   ((TEAM_MEMBER_COUNT++))
