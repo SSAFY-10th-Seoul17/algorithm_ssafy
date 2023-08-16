@@ -80,11 +80,11 @@ jobs:
             MESSAGE+="||"
             for ((i=0; i<$COLUMN_SIZE -1 ; i++))
             do
-              if (( i > ${#ONLINE[@]} )); then
-                MESSAGE+="|"
-              else
+              if (( ${#ONLINE[@]} -ne 0 )); then
                 MESSAGE+="${ONLINE[0]}|"
                 ONLINE=("${ONLINE[@]:1}")
+              else
+                MESSAGE+="|"
               fi
             done
             MESSAGE+="온라인|\\n\""
