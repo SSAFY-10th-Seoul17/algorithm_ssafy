@@ -51,7 +51,7 @@ jobs:
               echo "$TEAM_MEMBER_COUNT and $ $TEAM4_COUNT"
               for ((j=1; j< $MAX_TEAM_SIZE && ${#NAMES[@]} > 0; j++))
                 do
-                  TEAM_MEMBER_COUNT=$((TEAM_MEMBER_COUNT + 1))
+                  TEAM_MEMBER_COUNT=$(($TEAM_MEMBER_COUNT + 1))
                   echo "$TEAM_MEMBER_COUNT and MAX TEAM  $MAX_TEAM_SIZE"
                   INDEX=$(( RANDOM % ${#NAMES[@]} ))
                   MESSAGE+=" ${NAMES[$INDEX]} |"
@@ -59,8 +59,8 @@ jobs:
                 done
 
               if (($TEAM4_COUNT > 0 )); then
-                TEAM_MEMBER_COUNT=$((TEAM_MEMBER_COUNT + 1))
-                TEAM4_COUNT=$((TEAM4_COUNT + 1))
+                TEAM_MEMBER_COUNT=$(($TEAM_MEMBER_COUNT + 1))
+                TEAM4_COUNT=$(($TEAM4_COUNT + 1))
                 INDEX=$(( RANDOM % ${#NAMES[@]} ))
                 MESSAGE+=" ${NAMES[$INDEX]} |"
                 NAMES=(${NAMES[@]:0:$INDEX} ${NAMES[@]:$($INDEX + 1)})
