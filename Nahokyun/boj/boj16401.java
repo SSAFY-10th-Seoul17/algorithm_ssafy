@@ -26,7 +26,6 @@ public class boj16401 {
             snack[i] = Integer.parseInt(st.nextToken());
             sum += snack[i];
         }
-        Arrays.sort(snack);
 
         long start = 1;//가장 작은 길이의 과자
         long finish = sum / m;//총합을 조카의 수로 나눈 수
