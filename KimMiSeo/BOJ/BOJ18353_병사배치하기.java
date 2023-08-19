@@ -20,25 +20,23 @@ public class BOJ18353_병사배치하기 {
 		dp = new int[n];
 		
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		for (int i=n-1; i>=0; i--) {
+		for (int i=0; i<n; i++) {
 			powers[i] = Integer.parseInt(st.nextToken());
-			dp[i] = 1; // 모두 1로 초기화 시켜는 것도 ,,
+			dp[i] = 1;
 		}
 		
-		for(int i=1; i<n; i++) {
-			for (int j=0; j<i; j++) {
-				if (powers[i] > powers[j]) { 
-					dp[i] = Math.max(dp[j]+1,dp[i]); // j와 나를 포함한 개수 중 max
+		
+		int result = 1;
+		for (int i=1; i<n; i++) {
+			for (int j=0; j<=i-1; j++) {
+				if (powers[i] < powers[j]) {
+					dp[i] = Math.max(dp[j]+1, dp[i]);
+					result = Math.max(result, dp[i]);
 				}
 			}
 		}
-		
-		int max = dp[0];
-		for (int i=1; i<n; i++) {
-			max = Math.max(max, dp[i]);
-		}
-		
-		System.out.println(n-max);
+		System.out.println(n - result);
+
 	}
 
 }
