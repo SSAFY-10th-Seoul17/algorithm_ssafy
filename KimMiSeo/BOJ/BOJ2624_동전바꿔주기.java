@@ -7,42 +7,43 @@ import java.util.*;
 import java.io.*;
 
 public class BOJ2624_동전바꿔주기 {
-	static int t,k;
-	static int[][] coins;
-	static boolean[] isSelected;
-	static int[] dp;
-	static int count = 0;
-	public static void main(String[] args) throws Exception {
-		// k가지 동전, t원의 지폐 -> 동전
-		// 교환 방법 가지수 
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		t = Integer.parseInt(br.readLine());
-		k = Integer.parseInt(br.readLine());
-		
-		coins = new int[k][2];
-		dp = new int[t+1];
-		for (int i=0; i<k; i++) {
-			StringTokenizer st = new StringTokenizer(br.readLine());
-			coins[i][0] = Integer.parseInt(st.nextToken());
-			coins[i][1] = Integer.parseInt(st.nextToken());
-		}
-		
-		// x 금액을 동전으로 교환하는 방법의 가짓수 
-		dp[0] = 1;
-		for (int i=0; i<k; i++) { // 동전 종류
-			int coin = coins[i][0];
-			for (int j=t; j>=coin; j--) { // t금액~ 동전 1개 금액
-				for (int w=1; w<=coins[i][1]; w++) { // 1~동전 갯수
-					if (j - (coin*w) < 0) { 
-						break;
-					}
-					dp[j] += dp[j-(coin*w)];					
-				}
-			}
-		}
-		
-		System.out.println(dp[t]);
-		
-	}
-	
+	  static int t, k;
+	  static int[][] coins;
+	  static boolean[] isSelected;
+	  static int[] dp;
+	  static int count = 0;
+	  private static int[][] dp2;
+
+	  public static void main(String[] args) throws Exception {
+	    // k가지 동전, t원의 지폐 -> 동전
+	    // 교환 방법 가지수
+	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	    t = Integer.parseInt(br.readLine()); // 금액
+	    k = Integer.parseInt(br.readLine()); // 동전의 가지수
+
+	    coins = new int[k][2]; // 동전하나의 금액, 개수 를 저장할 배열
+	    dp2 = new int[k + 1][t + 1];
+	    dp2[0][0] = 1;
+	    for (int i = 1; i <= k; i++) { // 동전 종류
+	      StringTokenizer st = new StringTokenizer(br.readLine());
+	      int coin = Integer.parseInt(st.nextToken()); // 동전 금액
+	      int num = Integer.parseInt(st.nextToken()); // 동전 개수
+
+	      for (int j = 0; j <= t; j++) { // 1~t금액까지
+	        dp2[i][j] = dp2[i - 1][j];
+
+	        if (j < coin) { // 현재 금액이 동전 금액보다 작을 때 - 낼 수 없으니까
+	          continue;
+	        }
+	        for (int a = 1; a <= num; a++) { // 동전 개수 만큼
+	          if (j - (coin * a) >= 0) {
+	            dp2[i][j] = dp2[i][j] + dp2[i - 1][j - (coin * a)];
+	          }
+	        }
+	      }
+	    }
+
+	    System.out.println(dp2[k][t]);
+	  }
+
 }
