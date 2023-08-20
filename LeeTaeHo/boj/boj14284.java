@@ -34,10 +34,11 @@ public class boj14284 {
         pq.offer(new Node(start, 0));
         dist[start] = 0;
         while (!pq.isEmpty()){
-            int nowNode = pq.poll().idx;
-            for(Node nextNode : graph.get(nowNode)){
-                if(dist[nowNode] + nextNode.weight < dist[nextNode.idx]){
-                    dist[nextNode.idx] = dist[nowNode] + nextNode.weight;
+            Node nowNode = pq.poll();
+            if(dist[nowNode.idx] < nowNode.weight) continue;
+            for(Node nextNode : graph.get(nowNode.idx)){
+                if(dist[nowNode.idx] + nextNode.weight < dist[nextNode.idx]){
+                    dist[nextNode.idx] = dist[nowNode.idx] + nextNode.weight;
                     pq.offer(new Node(nextNode.idx, dist[nextNode.idx]));
                 }
             }
