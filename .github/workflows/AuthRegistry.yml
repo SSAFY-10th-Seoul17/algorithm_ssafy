@@ -1,0 +1,41 @@
+name: Check Folder Changes
+
+on:
+  pull_request:
+    types:
+      - synchronize
+      - opened
+
+jobs:
+  check-changes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Find user's folder
+        id: find-username
+        run: |
+          cat .docs/AuthRegistry.txt
+          user_folder=$(grep "^${{ github.actor }}:" .docs/AuthRegistry.txt | cut -d ':' -f 2) # 변경된 경로
+          echo "User folder: $user_folder"
+          echo "USER_FOLDER=$user_folder" >> $GITHUB_ENV
+
+      - name: Check for deleted files outside user's folder
+        run: |
+          latest_commit=${{ github.event.pull_request.head.sha }}
+          previous_commit=$(git rev-parse $latest_commit~1)
+
+          deleted_files=$(git diff --name-status $previous_commit $latest_commit | grep '^D' | cut -f 2)
+          unauthorized_deletions=""
+          for file in $deleted_files; do
+            if echo "$file" | grep -qv "^$USER_FOLDER/"; then
+              unauthorized_deletions+="$file"$'\n'
+            fi
+          done
+          if [ -n "$unauthorized_deletions" ]; then
+            echo "Deleted files outside user's folder: $unauthorized_deletions"
+            exit 1
+          fi
