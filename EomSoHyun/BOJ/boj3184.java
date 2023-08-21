@@ -56,6 +56,7 @@ public class Main {
 		Queue<int[]> q = new LinkedList<int[]>();
 		q.offer(new int[] {i, j});
 		visited[i][j] = true;
+		// 시작 위치에 늑대 혹은 양이 있는지 확인
 		if (map[i][j] == 'o') {
 			s++;
 		} else if (map[i][j] == 'v') {
