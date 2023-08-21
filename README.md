@@ -13,6 +13,26 @@
 
 <br>
 
+
+
+---
+
+### Team Profile
+
+
+
+|![승헌](https://avatars.githubusercontent.com/u/99643732)|![준호](https://avatars.githubusercontent.com/u/39554558)|![진하](https://avatars.githubusercontent.com/u/70102600)|![미서](https://avatars.githubusercontent.com/u/86819719)|![준서](https://avatars.githubusercontent.com/u/99449600 )|![재열](https://avatars.githubusercontent.com/u/49369306 )|![소현](https://avatars.githubusercontent.com/u/88651937 )|
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|**이승헌** <br> [olrlobt](https://github.com/olrlobt) <br> tmdgjs317| **최준호** <br> [junhochoi-dev](https://github.com/junhochoi-dev) <br> cjh970422 | **황진하** <br> [MadCom96](https://github.com/MadCom96) <br> hjh70902000 | **김미서** <br> [seomiii](https://github.com/seomiii)  <br> rlaaltj1765 | **김준서** <br> [adoo24](https://github.com/adoo24)  <br> adoo24 | **소재열** <br> [devjy39](https://github.com/devjy39) <br> jyeol39 | **엄소현** <br> [sohy19](https://github.com/sohy19) <br> eomso19 |
+|![현진](https://avatars.githubusercontent.com/u/90823532 )|![태호](https://avatars.githubusercontent.com/u/100212241 )|![준혁](https://avatars.githubusercontent.com/u/31150286 )|![선주](https://avatars.githubusercontent.com/u/68212526 )|![재환](https://avatars.githubusercontent.com/u/65287117 )|![유경](https://avatars.githubusercontent.com/u/76727102 )|![하은](https://avatars.githubusercontent.com/u/101447960 ) |
+|**이현진** <br> [hgene0929](https://github.com/hgene0929) <br> hgene99| **이태호** <br> [leetaggg](https://github.com/leetaggg) <br> leetag1163 | **허준혁** <br> [ComelyU](https://github.com/ComelyU) <br> demise1426 | **이선주** <br> [sunju5402](https://github.com/sunju5402) <br> sunju5402 | **차재환** <br> [barded1998](https://github.com/barded1998)  <br> barded1998 | **정유경** <br>[youkyoungJung](https://github.com/youkyoungJung)<br> yyk834 | **이하은** <br> [hahi1108](https://github.com/hahi1108) <br> haisley |
+|![주영](https://avatars.githubusercontent.com/u/87738361 )|![호균](https://avatars.githubusercontent.com/u/100259486 )|![기찬](https://avatars.githubusercontent.com/u/140886562 )|![승우](https://avatars.githubusercontent.com/u/59395755 )|![예준](https://avatars.githubusercontent.com/u/84260096 )|![희수](https://avatars.githubusercontent.com/u/133394749?v=4)||
+|**황주영** <br> [Hot-ttu](https://github.com/Hot-ttu) <br> ghkdwndud7| **나호균** <br> [nahokyun](https://github.com/nahokyun) <br> nahk99 | **김기찬** <br> [MadCom96](https://github.com/MadCom96) <br> melti080 | **김승우** <br> [DeveloperYard](https://github.com/DeveloperYard)  <br> swzzang96 | **임예준** <br> [dpwns523](https://github.com/dpwns523)  <br> dpwns523| **남희수** <br> [skagmltn7](https://github.com/skagmltn7)  <br> hisue7 |  :sunglasses: <br> [Github ID](https://search.pstatic.net/common/?src=http%3A%2F%2Fcafefiles.naver.net%2FMjAxOTAxMjRfMTgy%2FMDAxNTQ4Mjk5MTU3NzQw.OQ1lZVCSuDtomE47Z0vs2rLPd8GFz_zBLViEdyC170Ag.8mT-gzSXETdXYYZjL0s10qnq-qoeaEDcZonwy3zBskog.PNG.ekeod8120%2FexternalFile.png&type=sc960_832) <br> BOJ ID | 
+
+<br><br>
+
+
+
 ---
 
 ## 📜규칙
@@ -32,15 +52,19 @@ BOJ 그룹 (https://www.acmicpc.net/group/18461)
 
 
 1. [Eclipse로 시작하기 튜토리얼](.docs/GETTING_STARTED.md)
-<br>
+
 
 2. [IntelliJ로 시작하기 튜토리얼](.docs/GETTING_STARTED_intellJ.md)
-<br>
+
 
 3. [PR 가이드](.docs/PULL_REQUESTS_GUIDE.md)
-<br>
+
 
 4. [코드리뷰 가이드](.docs/CODE_REVIEW_GUIDE.md)
+
+
+5. [본인 폴더만 Clone 하기](.docs/Only_My_Folder_Clone_Guide.md)
+
 
 <br>
 
@@ -125,14 +149,9 @@ PR Comment :
 
 <br>
 
----
 
-### Team Profile
-
--
 
 ---
-
 
 ### 건의사항
 
