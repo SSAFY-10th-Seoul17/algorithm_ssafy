@@ -81,4 +81,3 @@ public class boj13424 {
         }
     }
 }
-
