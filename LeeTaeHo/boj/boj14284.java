@@ -44,17 +44,17 @@ public class boj14284 {
             }
         }
     }
-}
-class Node implements Comparable<Node>{
-    int idx;
-    int weight;
-    Node(int idx, int weight){
-        this.idx = idx;
-        this.weight = weight;
-    }
+    static class Node implements Comparable<Node>{
+        int idx;
+        int weight;
+        Node(int idx, int weight){
+            this.idx = idx;
+            this.weight = weight;
+        }
 
-    @Override
-    public int compareTo(Node o) {
-        return Integer.compare(this.weight, o.weight);
+        @Override
+        public int compareTo(Node o) {
+            return Integer.compare(this.weight, o.weight);
+        }
     }
 }
