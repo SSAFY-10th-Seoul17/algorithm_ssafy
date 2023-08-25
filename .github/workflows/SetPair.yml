@@ -27,9 +27,6 @@ jobs:
           done
           
           echo "ONLINE TEAM Size : ${#ONLINE[@]}"
-          echo "ONLINE_TEAM_SIZE=${#ONLINE[@]}" >> $GITHUB_ENV
-          echo "BEGINNING_NAMES=${BEGINNING_NAMES[*]}" >> $GITHUB_ENV
-
 
           Shuffle_OFFLINE_teams() {
               IFS=' ' read -r -a BEGINNING_NAMES <<< "$BEGINNING_NAMES"
@@ -83,7 +80,7 @@ jobs:
           Shuffle_OFFLINE_teams()
           Create OFFLINE teams()
           
-          
+
       - name: Make Message
         run: |
           
