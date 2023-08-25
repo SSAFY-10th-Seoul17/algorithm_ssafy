@@ -28,53 +28,47 @@ jobs:
           
           echo "ONLINE TEAM Size : ${#ONLINE[@]}"
 
-          Shuffle_OFFLINE_teams() {
-              SHUFFLED_NAMES=()
-              MEMBER_INDEX=0
-              while [ ${#BEGINNING_NAMES[@]} -gt 0 ]; 
-              do
-                RANDOM_INDEX=$(($RANDOM+$RANDOM))
-                INDEX=$(( RANDOM_INDEX % ${#BEGINNING_NAMES[@]} ))
-                SHUFFLED_NAMES[$MEMBER_INDEX]="${BEGINNING_NAMES[$INDEX]}"
-                BEGINNING_NAMES=(${BEGINNING_NAMES[@]:0:$INDEX} ${BEGINNING_NAMES[@]:$((INDEX+1))})
-                ((MEMBER_INDEX++))
-              done
-          }
-          
-        
-          Create_OFFLINE_teams() {
-              echo "SHUFFLED_NAMES : ${SHUFFLED_NAMES[@]}"
-              DEFAULT_TEAM_SIZE=3
-              COLUMN_SIZE=5
-              TEAM_COUNT=$(( ${#SHUFFLED_NAMES[@]} / DEFAULT_TEAM_SIZE ))
-              declare -A TEAMS
-              
-              for ((i=1; i<=TEAM_COUNT; i++)); 
-              do
-                for ((j=1; j<=COLUMN_SIZE+1; j++)); 
-                do
-                  if [[ ${#SHUFFLED_NAMES[@]} == 0 ]]; then
-                      TEAMS["TEAM_$j"]="${TEAMS["TEAM_$j"]} |"
-                      continue
-                  fi
-              
-                  RANDOM_INDEX=$RANDOM
-                  INDEX=$(( RANDOM_INDEX % ${#SHUFFLED_NAMES[@]} ))
-                  TEAMS["TEAM_$j"]="${TEAMS["TEAM_$j"]} | ${SHUFFLED_NAMES[$INDEX]}"
-                  echo "RANDOM : $RANDOM_INDEX   RANDOM_INDEX : $INDEX  ,  TEAM_$j 추가: ${SHUFFLED_NAMES[$INDEX]}"
-                  SHUFFLED_NAMES=(${SHUFFLED_NAMES[@]:0:$INDEX} ${SHUFFLED_NAMES[@]:$((INDEX+1))})
-                done
-              done
-              
-              for ((j=1; j<=TEAM_COUNT; j++)); do
-                echo "TEAM_$j: ${TEAMS["TEAM_$j"]}"
-              done
-          }
+
+          SHUFFLED_NAMES=()
+          MEMBER_INDEX=0
+          while [ ${#BEGINNING_NAMES[@]} -gt 0 ]; 
+          do
+            RANDOM_INDEX=$(($RANDOM+$RANDOM))
+            INDEX=$(( RANDOM_INDEX % ${#BEGINNING_NAMES[@]} ))
+            SHUFFLED_NAMES[$MEMBER_INDEX]="${BEGINNING_NAMES[$INDEX]}"
+            BEGINNING_NAMES=(${BEGINNING_NAMES[@]:0:$INDEX} ${BEGINNING_NAMES[@]:$((INDEX+1))})
+            ((MEMBER_INDEX++))
+          done
           
           
-          Shuffle_OFFLINE_teams()
-          Create_OFFLINE_teams()
+    
+          echo "SHUFFLED_NAMES : ${SHUFFLED_NAMES[@]}"
+          DEFAULT_TEAM_SIZE=3
+          COLUMN_SIZE=5
+          TEAM_COUNT=$(( ${#SHUFFLED_NAMES[@]} / DEFAULT_TEAM_SIZE ))
+          declare -A TEAMS
           
+          for ((i=1; i<=TEAM_COUNT; i++)); 
+          do
+            for ((j=1; j<=COLUMN_SIZE+1; j++)); 
+            do
+              if [[ ${#SHUFFLED_NAMES[@]} == 0 ]]; then
+                  TEAMS["TEAM_$j"]="${TEAMS["TEAM_$j"]} |"
+                  continue
+              fi
+          
+              RANDOM_INDEX=$RANDOM
+              INDEX=$(( RANDOM_INDEX % ${#SHUFFLED_NAMES[@]} ))
+              TEAMS["TEAM_$j"]="${TEAMS["TEAM_$j"]} | ${SHUFFLED_NAMES[$INDEX]}"
+              echo "RANDOM : $RANDOM_INDEX   RANDOM_INDEX : $INDEX  ,  TEAM_$j 추가: ${SHUFFLED_NAMES[$INDEX]}"
+              SHUFFLED_NAMES=(${SHUFFLED_NAMES[@]:0:$INDEX} ${SHUFFLED_NAMES[@]:$((INDEX+1))})
+            done
+          done
+          
+          for ((j=1; j<=TEAM_COUNT; j++)); do
+            echo "TEAM_$j: ${TEAMS["TEAM_$j"]}"
+          done
+      
 
       - name: Make Message
         run: |
