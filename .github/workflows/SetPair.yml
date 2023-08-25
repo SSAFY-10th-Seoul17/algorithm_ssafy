@@ -28,56 +28,62 @@ jobs:
           
           echo "ONLINE TEAM Size : ${#ONLINE[@]}"
           echo "ONLINE_TEAM_SIZE=${#ONLINE[@]}" >> $GITHUB_ENV
-          echo "BEGINNING_NAMES=${BEGINNING_NAMES[@]}" >> $GITHUB_ENV
+          echo "BEGINNING_NAMES=${BEGINNING_NAMES[*]}" >> $GITHUB_ENV
 
-      - name: Shuffle OFFLINE teams
-        run: |
-          IFS=' ' read -r -a BEGINNING_NAMES <<< "$BEGINNING_NAMES"
-          SHUFFLED_NAMES=()
-          MEMBER_INDEX=0
-          while [ ${#BEGINNING_NAMES[@]} -gt 0 ]; 
-          do
-            RANDOM_INDEX=$(($RANDOM+$RANDOM))
-            INDEX=$(( RANDOM_INDEX % ${#BEGINNING_NAMES[@]} ))
-            SHUFFLED_NAMES[$MEMBER_INDEX]="${BEGINNING_NAMES[$INDEX]}"
-            BEGINNING_NAMES=(${BEGINNING_NAMES[@]:0:$INDEX} ${BEGINNING_NAMES[@]:$((INDEX+1))})
-            ((MEMBER_INDEX++))
-          done
-          
-          echo "SHUFFLED_NAMES : ${SHUFFLED_NAMES[@]}"
-          echo "SHUFFLED_NAMES=${SHUFFLED_NAMES[@]}" >> $GITHUB_ENV
 
-      - name: Create OFFLINE teams
-        run: |
-          IFS=' ' read -r -a SHUFFLED_NAMES <<< "$SHUFFLED_NAMES"
-          echo "SHUFFLED_NAMES : ${SHUFFLED_NAMES[@]}"
-          DEFAULT_TEAM_SIZE=3
-          COLUMN_SIZE=5
-          TEAM_COUNT=$(( ${#SHUFFLED_NAMES[@]} / DEFAULT_TEAM_SIZE ))
-          declare -A TEAMS
+          Shuffle_OFFLINE_teams() {
+              IFS=' ' read -r -a BEGINNING_NAMES <<< "$BEGINNING_NAMES"
+              SHUFFLED_NAMES=()
+              MEMBER_INDEX=0
+              while [ ${#BEGINNING_NAMES[@]} -gt 0 ]; 
+              do
+                RANDOM_INDEX=$(($RANDOM+$RANDOM))
+                INDEX=$(( RANDOM_INDEX % ${#BEGINNING_NAMES[@]} ))
+                SHUFFLED_NAMES[$MEMBER_INDEX]="${BEGINNING_NAMES[$INDEX]}"
+                BEGINNING_NAMES=(${BEGINNING_NAMES[@]:0:$INDEX} ${BEGINNING_NAMES[@]:$((INDEX+1))})
+                ((MEMBER_INDEX++))
+              done
+          }
           
-          for ((i=1; i<=TEAM_COUNT; i++)); 
-          do
-            for ((j=1; j<=COLUMN_SIZE+1; j++)); 
-            do
-              if [[ ${#SHUFFLED_NAMES[@]} == 0 ]]; then
-                  TEAMS["TEAM_$j"]="${TEAMS["TEAM_$j"]} |"
-                  continue
-              fi
+        
+          Create OFFLINE teams(){
           
-              RANDOM_INDEX=$RANDOM
-              INDEX=$(( RANDOM_INDEX % ${#SHUFFLED_NAMES[@]} ))
-              TEAMS["TEAM_$j"]="${TEAMS["TEAM_$j"]} | ${SHUFFLED_NAMES[$INDEX]}"
-              echo "RANDOM : $RANDOM_INDEX   RANDOM_INDEX : $INDEX  ,  TEAM_$j 추가: ${SHUFFLED_NAMES[$INDEX]}"
-              SHUFFLED_NAMES=(${SHUFFLED_NAMES[@]:0:$INDEX} ${SHUFFLED_NAMES[@]:$((INDEX+1))})
-            done
-          done
+            
+              IFS=' ' read -r -a SHUFFLED_NAMES <<< "$SHUFFLED_NAMES"
+              echo "SHUFFLED_NAMES : ${SHUFFLED_NAMES[@]}"
+              DEFAULT_TEAM_SIZE=3
+              COLUMN_SIZE=5
+              TEAM_COUNT=$(( ${#SHUFFLED_NAMES[@]} / DEFAULT_TEAM_SIZE ))
+              declare -A TEAMS
+              
+              for ((i=1; i<=TEAM_COUNT; i++)); 
+              do
+                for ((j=1; j<=COLUMN_SIZE+1; j++)); 
+                do
+                  if [[ ${#SHUFFLED_NAMES[@]} == 0 ]]; then
+                      TEAMS["TEAM_$j"]="${TEAMS["TEAM_$j"]} |"
+                      continue
+                  fi
+              
+                  RANDOM_INDEX=$RANDOM
+                  INDEX=$(( RANDOM_INDEX % ${#SHUFFLED_NAMES[@]} ))
+                  TEAMS["TEAM_$j"]="${TEAMS["TEAM_$j"]} | ${SHUFFLED_NAMES[$INDEX]}"
+                  echo "RANDOM : $RANDOM_INDEX   RANDOM_INDEX : $INDEX  ,  TEAM_$j 추가: ${SHUFFLED_NAMES[$INDEX]}"
+                  SHUFFLED_NAMES=(${SHUFFLED_NAMES[@]:0:$INDEX} ${SHUFFLED_NAMES[@]:$((INDEX+1))})
+                done
+              done
+              
+              for ((j=1; j<=TEAM_COUNT; j++)); do
+                echo "TEAM_$j: ${TEAMS["TEAM_$j"]}"
+              done
+              echo "TEAMS=${TEAMS[*]}" >> $GITHUB_ENV
+          }
           
-          for ((j=1; j<=TEAM_COUNT; j++)); do
-            echo "TEAM_$j: ${TEAMS["TEAM_$j"]}"
-          done
-          echo "TEAMS=${TEAMS[*]}" >> $GITHUB_ENV
-
+          
+          Shuffle_OFFLINE_teams()
+          Create OFFLINE teams()
+          
+          
       - name: Make Message
         run: |
           
