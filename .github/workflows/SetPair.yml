@@ -29,7 +29,6 @@ jobs:
           echo "ONLINE TEAM Size : ${#ONLINE[@]}"
 
           Shuffle_OFFLINE_teams() {
-              IFS=' ' read -r -a BEGINNING_NAMES <<< "$BEGINNING_NAMES"
               SHUFFLED_NAMES=()
               MEMBER_INDEX=0
               while [ ${#BEGINNING_NAMES[@]} -gt 0 ]; 
@@ -44,7 +43,6 @@ jobs:
           
         
           Create_OFFLINE_teams() {
-              IFS=' ' read -r -a SHUFFLED_NAMES <<< "$SHUFFLED_NAMES"
               echo "SHUFFLED_NAMES : ${SHUFFLED_NAMES[@]}"
               DEFAULT_TEAM_SIZE=3
               COLUMN_SIZE=5
@@ -71,7 +69,6 @@ jobs:
               for ((j=1; j<=TEAM_COUNT; j++)); do
                 echo "TEAM_$j: ${TEAMS["TEAM_$j"]}"
               done
-              echo "TEAMS=${TEAMS[*]}" >> $GITHUB_ENV
           }
           
           
