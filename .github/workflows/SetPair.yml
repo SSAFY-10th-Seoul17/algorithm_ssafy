@@ -32,7 +32,7 @@ jobs:
 
       - name: Shuffle OFFLINE teams
         run: |
-          BEGINNING_NAMES=$NAMES
+          BEGINNING_NAMES=${NAMES}
           SHUFFLED_NAMES=()
           MEMBER_INDEX=0
           while [ ${#BEGINNING_NAMES[@]} -gt 0 ]; 
