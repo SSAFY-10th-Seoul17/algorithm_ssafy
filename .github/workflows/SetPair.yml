@@ -43,9 +43,7 @@ jobs:
           }
           
         
-          Create OFFLINE teams(){
-          
-            
+          Create OFFLINE teams() {
               IFS=' ' read -r -a SHUFFLED_NAMES <<< "$SHUFFLED_NAMES"
               echo "SHUFFLED_NAMES : ${SHUFFLED_NAMES[@]}"
               DEFAULT_TEAM_SIZE=3
