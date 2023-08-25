@@ -3,6 +3,9 @@ name: Set Random Pair
 on:
   schedule:
     - cron: '0 9 * * 4'
+  push:
+    branches:
+      GithubActions_test
 
 env:
   MEMBERS: ${{ secrets.MEMBER }}
