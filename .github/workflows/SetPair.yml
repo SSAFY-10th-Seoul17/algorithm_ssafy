@@ -6,7 +6,6 @@ on:
   push:
     branches:
       GithubActions_test
-
 env:
   MEMBERS: ${{ secrets.MEMBER }}
   ONLINE_MEMBERS: ${{ secrets.ONLINE }}
@@ -28,10 +27,12 @@ jobs:
           done
           
           echo "ONLINE TEAM Size : ${#ONLINE[@]}"
-
+          echo "ONLINE_TEAM_SIZE=${#ONLINE[@]}" >> $GITHUB_ENV
+          echo "BEGINNING_NAMES=${BEGINNING_NAMES[*]}" >> $GITHUB_ENV
 
       - name: Shuffle OFFLINE teams
         run: |
+          IFS=' ' read -r -a BEGINNING_NAMES <<< "$BEGINNING_NAMES"
           SHUFFLED_NAMES=()
           MEMBER_INDEX=0
           while [ ${#BEGINNING_NAMES[@]} -gt 0 ]; 
@@ -44,9 +45,11 @@ jobs:
           done
           
           echo "SHUFFLED_NAMES : ${SHUFFLED_NAMES[@]}"
+          echo "SHUFFLED_NAMES=${SHUFFLED_NAMES[*]}" >> $GITHUB_ENV
 
       - name: Create OFFLINE teams
         run: |
+          IFS=' ' read -r -a SHUFFLED_NAMES <<< "$SHUFFLED_NAMES"
           echo "SHUFFLED_NAMES : ${SHUFFLED_NAMES[@]}"
           DEFAULT_TEAM_SIZE=3
           COLUMN_SIZE=5
@@ -73,9 +76,12 @@ jobs:
           for ((j=1; j<=TEAM_COUNT; j++)); do
             echo "TEAM_$j: ${TEAMS["TEAM_$j"]}"
           done
+          echo "TEAMS=${TEAMS[*]}" >> $GITHUB_ENV
 
-      - name: Set Date
+      - name: Make Message
         run: |
+          
+          IFS=' ' read -r -a TEAMS <<< "$TEAMS"
           NEXT_WEEK_MONTH=$(date --date="next week" +%-m)
           NEXT_WEEK_DATE=$(date --date="next week" +%-d)
           NEXT_WEEK_NUM=$((NEXT_WEEK_DATE/7 + 1))
@@ -84,9 +90,7 @@ jobs:
             $((NEXT_WEEK_NUM--))
           fi
           echo "$NEXT_WEEK_MONTH 월 $NEXT_WEEK_DATE 일 $NEXT_WEEK_NUM 주차"
-
-      - name: Make Message
-        run: |
+          
           MESSAGE="\"| Pair |$NEXT_WEEK_MONTH 월 | $NEXT_WEEK_NUM 주차 ||| 비고 |\\n"
           MESSAGE+="|---|---|---|---|---|---|\\n"
           for ((i=1; i<=$TEAM_COUNT; i++))
@@ -109,4 +113,3 @@ jobs:
           echo "$MESSAGE"
           
           curl -X POST -H 'Content-type: application/json' --data "{\"text\": $MESSAGE}" ${{ secrets.WEBHOOK }}
-          
