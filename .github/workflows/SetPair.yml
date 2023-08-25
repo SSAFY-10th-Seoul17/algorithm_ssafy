@@ -70,10 +70,7 @@ jobs:
           done
       
 
-      - name: Make Message
-        run: |
-          
-          IFS=' ' read -r -a TEAMS <<< "$TEAMS"
+        
           NEXT_WEEK_MONTH=$(date --date="next week" +%-m)
           NEXT_WEEK_DATE=$(date --date="next week" +%-d)
           NEXT_WEEK_NUM=$((NEXT_WEEK_DATE/7 + 1))
