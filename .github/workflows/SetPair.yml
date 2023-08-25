@@ -20,10 +20,10 @@ jobs:
           IFS=' ' read -r -a ALL_MEMBERS <<< "$MEMBERS"
           IFS=' ' read -r -a ONLINE <<< "$ONLINE_MEMBERS"
           
-          NAMES=()
+          BEGINNING_NAMES=()
           for member in "${ALL_MEMBERS[@]}"; do
             if [[ ! " ${ONLINE[@]} " =~ " ${member} " ]]; then
-              NAMES+=("$member")
+              BEGINNING_NAMES+=("$member")
             fi
           done
           
@@ -32,7 +32,6 @@ jobs:
 
       - name: Shuffle OFFLINE teams
         run: |
-          BEGINNING_NAMES=${NAMES}
           SHUFFLED_NAMES=()
           MEMBER_INDEX=0
           while [ ${#BEGINNING_NAMES[@]} -gt 0 ]; 
