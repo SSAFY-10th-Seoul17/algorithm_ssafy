@@ -27,7 +27,7 @@ jobs:
           done
           
           echo "ONLINE TEAM Size : ${#ONLINE[@]}"
-
+          echo "BEGINNING_NAMES Size : ${#BEGINNING_NAMES[@]}"
 
           SHUFFLED_NAMES=()
           MEMBER_INDEX=0
