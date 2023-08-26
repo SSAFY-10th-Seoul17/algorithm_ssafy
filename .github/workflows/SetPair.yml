@@ -37,20 +37,20 @@ jobs:
             INDEX=$(( RANDOM_INDEX % ${#BEGINNING_NAMES[@]} ))
             SHUFFLED_NAMES[i]="${BEGINNING_NAMES[$INDEX]}"
             BEGINNING_NAMES=(${BEGINNING_NAMES[@]:0:$INDEX} ${BEGINNING_NAMES[@]:$((INDEX+1))})
-            echo "i = $i"
           done
           
-          
-    
           echo "SHUFFLED_NAMES : ${SHUFFLED_NAMES[@]}"
+          SHUFFLED_NAMES=($(printf "%s\n" "${SHUFFLED_NAMES[@]}" | shuf))
+          echo "SHUFFLED_NAMES : ${SHUFFLED_NAMES[@]}"
+          
           DEFAULT_TEAM_SIZE=3
           COLUMN_SIZE=5
           TEAM_COUNT=$(( ${#SHUFFLED_NAMES[@]} / DEFAULT_TEAM_SIZE ))
           declare -A TEAMS
           
-          for ((i=1; i<=TEAM_COUNT; i++)); 
+          for ((i=1; i<=COLUMN_SIZE; i++)); 
           do
-            for ((j=1; j<=COLUMN_SIZE+1; j++)); 
+            for ((j=1; j<=TEAM_COUNT; j++)); 
             do
               if [[ ${#SHUFFLED_NAMES[@]} == 0 ]]; then
                   TEAMS["TEAM_$j"]="${TEAMS["TEAM_$j"]} |"
@@ -60,7 +60,7 @@ jobs:
               RANDOM_INDEX=$RANDOM
               INDEX=$(( RANDOM_INDEX % ${#SHUFFLED_NAMES[@]} ))
               TEAMS["TEAM_$j"]="${TEAMS["TEAM_$j"]} | ${SHUFFLED_NAMES[$INDEX]}"
-              echo "RANDOM : $RANDOM_INDEX   RANDOM_INDEX : $INDEX  ,  TEAM_$j 추가: ${SHUFFLED_NAMES[$INDEX]}"
+              echo "RANDOM : $RANDOM_INDEX / RANDOM_INDEX : $INDEX / TEAM_$j 추가: ${SHUFFLED_NAMES[$INDEX]}"
               SHUFFLED_NAMES=(${SHUFFLED_NAMES[@]:0:$INDEX} ${SHUFFLED_NAMES[@]:$((INDEX+1))})
             done
           done
