@@ -29,16 +29,18 @@ jobs:
           echo "ONLINE TEAM Size : ${#ONLINE[@]}"
           echo "BEGINNING_NAMES Size : ${#BEGINNING_NAMES[@]}"
 
+          BEGINNING_NAMES=("이승헌" "김미서" "최준호" "김기찬" "김준서" "정유경")
           SHUFFLED_NAMES=()
-          MEMBER_INDEX=0
-          while [ ${#BEGINNING_NAMES[@]} -gt 0 ]; 
+          
+          
+          
+          for ((i=1; i<=${#BEGINNING_NAMES[@]}; i++)); 
           do
             RANDOM_INDEX=$(($RANDOM+$RANDOM))
             INDEX=$(( RANDOM_INDEX % ${#BEGINNING_NAMES[@]} ))
-            SHUFFLED_NAMES[$MEMBER_INDEX]="${BEGINNING_NAMES[$INDEX]}"
+            SHUFFLED_NAMES[i]="${BEGINNING_NAMES[$INDEX]}"
             BEGINNING_NAMES=(${BEGINNING_NAMES[@]:0:$INDEX} ${BEGINNING_NAMES[@]:$((INDEX+1))})
-            ((MEMBER_INDEX++))
-            echo "MEMBER_INDEX : ${MEMBER_INDEX[@]}"
+            echo "i = $i"
           done
           
           
