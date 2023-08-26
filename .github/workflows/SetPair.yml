@@ -104,8 +104,8 @@ jobs:
                 MESSAGE+="${ONLINE[$j]}|"
               fi
             done
-            MESSAGE+="온라인|\\n\""
+            MESSAGE+="온라인|\\n"
           done
-          
+          MESSAGE+="\""
           curl -X POST -H 'Content-type: application/json' --data "{\"text\": $MESSAGE}" ${{ secrets.WEBHOOK }}
-          echo "Success"
+        
