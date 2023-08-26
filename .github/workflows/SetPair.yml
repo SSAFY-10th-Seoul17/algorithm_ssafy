@@ -31,7 +31,7 @@ jobs:
 
           SHUFFLED_NAMES=()
           
-          for ((i=1; i<=${#BEGINNING_NAMES[@]}; i++)); 
+          for ((i=1; ${#BEGINNING_NAMES[@]} != 0; i++)); 
           do
             RANDOM_INDEX=$(($RANDOM+$RANDOM))
             INDEX=$(( RANDOM_INDEX % ${#BEGINNING_NAMES[@]} ))
