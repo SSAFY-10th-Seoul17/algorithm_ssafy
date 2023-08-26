@@ -98,8 +98,8 @@ jobs:
           ON_MESSAGE+="\\n|"
           for ((i=1; i<=((${#ONLINE[@]}/(COLUMN_SIZE-1) ))+1; i++)); 
           do
-            MESSAGE+="${ONLINE[$j]}|"
+            ON_MESSAGE+="${ONLINE[$j]}|"
           done
-          MESSAGE+="\""
-          curl -X POST -H 'Content-type: application/json' --data "{\"text\": $MESSAGE}" ${{ secrets.WEBHOOK }}
+          ON_MESSAGE+="\""
+          curl -X POST -H 'Content-type: application/json' --data "{\"text\": $MESSAGE + $ON_MESSAGE}" ${{ secrets.WEBHOOK }}
         
