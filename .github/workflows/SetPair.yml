@@ -38,6 +38,7 @@ jobs:
             SHUFFLED_NAMES[$MEMBER_INDEX]="${BEGINNING_NAMES[$INDEX]}"
             BEGINNING_NAMES=(${BEGINNING_NAMES[@]:0:$INDEX} ${BEGINNING_NAMES[@]:$((INDEX+1))})
             ((MEMBER_INDEX++))
+            echo "MEMBER_INDEX : ${MEMBER_INDEX[@]}"
           done
           
           
