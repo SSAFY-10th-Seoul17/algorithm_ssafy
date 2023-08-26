@@ -93,7 +93,7 @@ jobs:
           
           for ((i=0; i<=((${#ONLINE[@]}/(COLUMN_SIZE-1) )); i++)); 
           do
-            MESSAGE+="||"
+            MESSAGE+="|On.|"
             for ((j=i*(COLUMN_SIZE-1); j<(i+1)*(COLUMN_SIZE-1); j++)); 
             do
               if (( j >= ${#ONLINE[@]} )); then
@@ -102,7 +102,7 @@ jobs:
                 MESSAGE+="${ONLINE[$j]}|"
               fi
             done
-            MESSAGE+="온라인|\\n"
+            MESSAGE+="|\\n"
           done
           MESSAGE+="\""
           curl -X POST -H 'Content-type: application/json' --data "{\"text\": $MESSAGE}" ${{ secrets.WEBHOOK }}
