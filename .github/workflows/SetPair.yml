@@ -45,7 +45,7 @@ jobs:
           
           DEFAULT_TEAM_SIZE=3
           COLUMN_SIZE= $DEFAULT_TEAM_SIZE
-          if [[ $(({#SHUFFLED_NAMES[@]} % DEFAULT_TEAM_SIZE)) != 0 ]]; then
+          if [[ $((${#SHUFFLED_NAMES[@]} % $DEFAULT_TEAM_SIZE)) -ne 0 ]]; then
             ((COLUMN_SIZE++))
           fi
           
