@@ -14,7 +14,7 @@ jobs:
   check-changes:
     runs-on: ubuntu-latest
     steps:
-      - name: Create ONLINE teams
+      - name: Matching Pair
         run: |
           IFS=' ' read -r -a ALL_MEMBERS <<< "$MEMBERS"
           IFS=' ' read -r -a ONLINE <<< "$ONLINE_MEMBERS"
@@ -94,9 +94,9 @@ jobs:
           
           MESSAGE+="||"
           
-          for ((i=0; i<((${#ONLINE[@]}/(COLUMN_SIZE-1) )); i++)); 
+          for ((i=0; i<=((${#ONLINE[@]}/(COLUMN_SIZE-1) )); i++)); 
           do
-            for ((j=i*(COLUMN_SIZE-1); j<=(i+1)*COLUMN_SIZE; j++)); 
+            for ((j=i*(COLUMN_SIZE-1); j<(i+1)*COLUMN_SIZE; j++)); 
             do
               if (( j > ${#ONLINE[@]} )); then
                 MESSAGE+="|"
