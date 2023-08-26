@@ -14,7 +14,7 @@ jobs:
   check-changes:
     runs-on: ubuntu-latest
     steps:
-      - name: Matching Pair 
+      - name: Matching Pair
         run: |
           IFS=' ' read -r -a ALL_MEMBERS <<< "$MEMBERS"
           IFS=' ' read -r -a ONLINE <<< "$ONLINE_MEMBERS"
@@ -44,7 +44,11 @@ jobs:
           echo "SHUFFLED_NAMES : ${SHUFFLED_NAMES[@]}"
           
           DEFAULT_TEAM_SIZE=3
-          COLUMN_SIZE=4
+          COLUMN_SIZE= $DEFAULT_TEAM_SIZE
+          if [[ ((${#SHUFFLED_NAMES[@]} % DEFAULT_TEAM_SIZE)) != 0 ]]; then
+            ((COLUMN_SIZE++))
+          fi
+          
           TEAM_COUNT=$(( ${#SHUFFLED_NAMES[@]} / DEFAULT_TEAM_SIZE ))
           declare -A TEAMS
           
