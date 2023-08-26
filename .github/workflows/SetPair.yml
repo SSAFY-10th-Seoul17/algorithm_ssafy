@@ -89,21 +89,20 @@ jobs:
               MESSAGE+="${TEAMS["TEAM_$i"]}"
               MESSAGE+="\\n"
             done
+          MESSAGE += "Online \\n"
           
-          ON_MESSAGE+="|"
+          MESSAGE+="|"
           for ((i=0; i<=${#ONLINE[@]}; i++)); 
           do
-            ON_MESSAGE+="---|"
+            MESSAGE+="---|"
           done
-          ON_MESSAGE+="\\n|"
+          MESSAGE+="\\n|"
           for ((i=0; i<=${#ONLINE[@]}; i++)); 
           do
-            ON_MESSAGE+="${ONLINE[$i]}|"
+            MESSAGE+="${ONLINE[$i]}|"
           done
-          ON_MESSAGE+="\""
+          MESSAGE+="\""
           
-          $MESSAGE += "Online \\n"
-          $MESSAGE += $ON_MESSAGE
-          
+      
           curl -X POST -H 'Content-type: application/json' --data "{\"text\": $MESSAGE}" ${{ secrets.WEBHOOK }}
         
