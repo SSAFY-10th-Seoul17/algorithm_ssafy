@@ -89,7 +89,7 @@ jobs:
               MESSAGE+="${TEAMS["TEAM_$i"]}"
               MESSAGE+="\\n"
             done
-          MESSAGE += "Online \\n"
+          MESSAGE+="Online \\n"
           
           MESSAGE+="|"
           for ((i=0; i<=${#ONLINE[@]}; i++)); 
