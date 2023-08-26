@@ -84,8 +84,16 @@ jobs:
           fi
           echo "$NEXT_WEEK_MONTH 월 $NEXT_WEEK_DATE 일 $NEXT_WEEK_NUM 주차"
           
-          MESSAGE="\"| Pair |$NEXT_WEEK_MONTH 월 | $NEXT_WEEK_NUM 주차 |||\\n"
-          MESSAGE+="|---|---|---|---|---|\\n"
+          
+          
+          MESSAGE="\"| Pair |$NEXT_WEEK_MONTH 월 | $NEXT_WEEK_NUM 주차 |\\n"
+          
+          MESSAGE+="|"
+          for ((i=1; i<=$COLUMN_SIZE; i++))
+          do
+            MESSAGE+="---|"
+          done
+          MESSAGE+="\\n"
           
           for ((i=1; i<=$TEAM_COUNT; i++))
             do
