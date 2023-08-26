@@ -90,19 +90,15 @@ jobs:
               MESSAGE+="\\n"
             done
           
-          MESSAGE+="|Online.||||||\\n"
+          ON_MESSAGE+="|"
+          for ((i=0; i<=${#ONLINE[@]}; i++)); 
+          do
+            ON_MESSAGE+="---|"
+          done
+          ON_MESSAGE+="\\n|"
           for ((i=1; i<=((${#ONLINE[@]}/(COLUMN_SIZE-1) ))+1; i++)); 
           do
-            MESSAGE+="||"
-            for ((j=(i-1)*(COLUMN_SIZE-1); j<i*(COLUMN_SIZE-1); j++)); 
-            do
-              if (( j >= ${#ONLINE[@]} )); then
-                MESSAGE+="|"
-              else
-                MESSAGE+="${ONLINE[$j]}|"
-              fi
-            done
-            MESSAGE+="||\\n"
+            MESSAGE+="${ONLINE[$j]}|"
           done
           MESSAGE+="\""
           curl -X POST -H 'Content-type: application/json' --data "{\"text\": $MESSAGE}" ${{ secrets.WEBHOOK }}
