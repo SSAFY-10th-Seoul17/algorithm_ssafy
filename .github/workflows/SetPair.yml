@@ -48,7 +48,7 @@ jobs:
           TEAM_COUNT=$(( ${#SHUFFLED_NAMES[@]} / DEFAULT_TEAM_SIZE ))
           declare -A TEAMS
           
-          for ((i=1; i<=COLUMN_SIZE; i++)); 
+          for ((i=0; i<=COLUMN_SIZE; i++)); 
           do
             for ((j=1; j<=TEAM_COUNT; j++)); 
             do
