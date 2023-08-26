@@ -101,5 +101,9 @@ jobs:
             ON_MESSAGE+="${ONLINE[$i]}|"
           done
           ON_MESSAGE+="\""
-          curl -X POST -H 'Content-type: application/json' --data "{\"text\": \"$MESSAGE Online : \\n  $ON_MESSAGE\"}" ${{ secrets.WEBHOOK }}
+          
+          $MESSAGE += "Online \\n"
+          $MESSAGE += $ON_MESSAGE
+          
+          curl -X POST -H 'Content-type: application/json' --data "{\"text\": $MESSAGE}" ${{ secrets.WEBHOOK }}
         
