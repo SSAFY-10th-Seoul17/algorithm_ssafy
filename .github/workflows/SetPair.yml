@@ -96,12 +96,12 @@ jobs:
           MESSAGE+="|Online|\\n"
           
           MESSAGE+="|"
-          for ((i=0; i<=${#ONLINE[@]}; i++)); 
+          for ((i=0; i<${#ONLINE[@]}; i++)); 
           do
             MESSAGE+="---|"
           done
           MESSAGE+="\\n|"
-          for ((i=0; i<=${#ONLINE[@]}; i++)); 
+          for ((i=0; i<${#ONLINE[@]}; i++)); 
           do
             MESSAGE+="${ONLINE[$i]}|"
           done
