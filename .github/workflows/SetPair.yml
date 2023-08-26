@@ -96,9 +96,9 @@ jobs:
           
           for ((i=0; i<=((${#ONLINE[@]}/(COLUMN_SIZE-1) )); i++)); 
           do
-            for ((j=i*(COLUMN_SIZE-1); j<(i+1)*COLUMN_SIZE; j++)); 
+            for ((j=i*(COLUMN_SIZE-1); j<(i+1)*(COLUMN_SIZE-1); j++)); 
             do
-              if (( j > ${#ONLINE[@]} )); then
+              if (( j >= ${#ONLINE[@]} )); then
                 MESSAGE+="|"
               else
                 MESSAGE+="${ONLINE[$j]}|"
