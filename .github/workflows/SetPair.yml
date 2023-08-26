@@ -29,10 +29,7 @@ jobs:
           echo "ONLINE TEAM Size : ${#ONLINE[@]}"
           echo "BEGINNING_NAMES Size : ${#BEGINNING_NAMES[@]}"
 
-          BEGINNING_NAMES=("이승헌" "김미서" "최준호" "김기찬" "김준서" "정유경")
           SHUFFLED_NAMES=()
-          
-          
           
           for ((i=1; i<=${#BEGINNING_NAMES[@]}; i++)); 
           do
