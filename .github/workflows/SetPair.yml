@@ -91,11 +91,9 @@ jobs:
             done
           
           
-          
-          MESSAGE+="||"
-          
           for ((i=0; i<=((${#ONLINE[@]}/(COLUMN_SIZE-1) )); i++)); 
           do
+            MESSAGE+="||"
             for ((j=i*(COLUMN_SIZE-1); j<(i+1)*(COLUMN_SIZE-1); j++)); 
             do
               if (( j >= ${#ONLINE[@]} )); then
