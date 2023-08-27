@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.function.IntBinaryOperator;
 
-public class Main {
+public class Boj17265 {
     static char[][] map;
 
     public static void main(String[] args) throws IOException {
