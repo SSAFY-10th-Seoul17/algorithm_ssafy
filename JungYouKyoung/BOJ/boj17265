@@ -11,14 +11,12 @@ public class boj17265 {
 		int x, y;
 		char value;
 		int res;
-		int cnt;
 
-		public Location(int x, int y, char value, int res, int cnt) {
+		public Location(int x, int y, char value, int res) {
 			this.x = x;
 			this.y = y;
 			this.value = value;
 			this.res = res;
-			this.cnt = cnt;
 		}
 	}
 
@@ -40,7 +38,7 @@ public class boj17265 {
 		}//입력끝
 		
 		Queue<Location> queue = new ArrayDeque<Location>();
-		queue.offer(new Location(0, 0, map[0][0], map[0][0]-'0', 0)); //첫점(r, c), value, 지금까지 계산된 값
+		queue.offer(new Location(0, 0, map[0][0], map[0][0]-'0')); //첫점(r, c), value, 지금까지 계산된 값
 		
 		int max = Integer.MIN_VALUE;
 		int min = Integer.MAX_VALUE;
@@ -73,7 +71,7 @@ public class boj17265 {
 				}
 				
 				//일단 인접한 정점 다 넣기
-				queue.offer(new Location(nr, nc, nv, nres, current.cnt+1));
+				queue.offer(new Location(nr, nc, nv, nres));
 			}
 			
 		}//큐끝
