@@ -14,6 +14,7 @@ public class Main {
 
             for (int i = 0; i < N; i++) {
                 StringBuilder sb = new StringBuilder();
+                StringBuilder sb2 = new StringBuilder();
 
                 int num = (int) Math.pow(3,i+1);
 
@@ -22,8 +23,8 @@ public class Main {
                 }
 
                 String blank = sb.toString();
-
-                dp[i+1] = dp[i] + blank + dp[i];
+                sb2.append(dp[i]).append(blank).dp[i];
+                dp[i+1] = sb2.toString();
             }
 
             System.out.println(dp[N]);
