@@ -1,0 +1,59 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+/**
+ * 종이접기
+ */
+public class boj1802 {
+
+
+	private static boolean flag;
+	private static char[] paper;
+
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		
+		int t = Integer.parseInt(br.readLine()); //테스트케이스 개수
+		
+		for (int test_case = 0; test_case < t; test_case++) {
+			String s = br.readLine();
+			int n = s.length();
+			paper = new char[n]; //종이 in-out 정보 담을 배열
+			
+			for (int i = 0; i < n; i++) {
+				paper[i] = s.charAt(i);
+			} // 입력 끝
+			
+			flag = false; //초기화
+			
+			dfs(0, n-1);
+			if(flag) {
+				sb.append("NO").append("\n");
+			}else {
+				sb.append("YES").append("\n");
+			}
+			
+		}//end tc
+		System.out.println(sb.toString());
+		
+	}//end main
+
+	private static void dfs(int start, int end) {
+		//기저조건
+		if(start == end) return; 
+		
+		int mid = (start + end) / 2;
+		for(int i = start; i < mid; i++) {
+			if(paper[i] == paper[end-i]) {
+				flag = true; //같으면 true
+			}
+		}
+		
+		dfs(start, mid-1);
+		dfs(mid+1, end);
+		
+	}
+
+}//end class
