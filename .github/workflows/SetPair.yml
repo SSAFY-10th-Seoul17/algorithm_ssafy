@@ -3,6 +3,9 @@ name: Set Random Pair
 on:
   schedule:
     - cron: '0 9 * * 4'
+  push:
+    branches:
+      main
   
 env:
   MEMBERS: ${{ secrets.MEMBER }}
@@ -78,7 +81,7 @@ jobs:
           NEXT_WEEK_NUM=$((NEXT_WEEK_DATE/7 + 1))
           
           if [ $((NEXT_WEEK_DATE % 7)) -eq 0 ]; then
-            $((NEXT_WEEK_NUM--))
+            NEXT_WEEK_NUM=$((NEXT_WEEK_NUM - 1))
           fi
           echo "$NEXT_WEEK_MONTH 월 $NEXT_WEEK_DATE 일 $NEXT_WEEK_NUM 주차"
           
