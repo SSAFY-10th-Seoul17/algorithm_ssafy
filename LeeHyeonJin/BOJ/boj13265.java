@@ -1,6 +1,10 @@
 import java.io.*;
 import java.util.*;
 
+/*
+* 연결된 노드들이 서로 인접한 경우 다른 색으로 색칠되어야 함
+* -> 그래프 탐색(DFS or BFS)을 통해 퍼져나가며 둘이 인접한 경우 색이 서로 다른지 여부 비교 => BFS
+* */
 public class boj13265 {
 	static int n, m;
 	static List<List<Integer>> graph;
