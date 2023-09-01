@@ -1,0 +1,98 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import java.util.StringTokenizer;
+
+public class boj14497_2 {
+	
+	static class Location implements Comparable<Location>{
+		int x, y;
+		int cnt;
+		
+		public Location(int x, int y, int cnt) {
+			this.x = x;
+			this.y = y;
+			this.cnt = cnt;
+		}
+
+		@Override
+		public int compareTo(Location o) {
+			return Integer.compare(this.cnt, o.cnt);
+		}
+		
+	}
+
+	static int[][] dist = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};//상하좌우
+	
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int n = Integer.parseInt(st.nextToken());
+		int m = Integer.parseInt(st.nextToken());
+		
+		st = new StringTokenizer(br.readLine());
+		int x1 = Integer.parseInt(st.nextToken()); //주난이 위치
+		int y1 = Integer.parseInt(st.nextToken());
+		int x2 = Integer.parseInt(st.nextToken()); //초코바 도둑 위치
+		int y2 = Integer.parseInt(st.nextToken());
+		
+		char[][] map = new char[n][m];
+		for (int i = 0; i < n; i++) {
+			String s = br.readLine();
+			for (int j = 0; j < m; j++) {
+				map[i][j] = s.charAt(j);
+			}
+		}//입력 끝
+		
+		Queue<Location> queue = new PriorityQueue<Location>();
+		queue.offer(new Location(x1-1, y1-1, 0)); //첫값 위치 넣기
+		map[x1-1][y1-1] = '2';
+		
+		int min = Integer.MAX_VALUE;
+		Location current = null;
+		
+		while(!queue.isEmpty()) {
+			current = queue.poll();
+//			System.out.println(current.cnt);
+			
+			if(current.x == x2-1 && current.y == y2-1) {
+				break;
+			}
+
+			for (int i = 0; i < dist.length; i++) {
+				int nr = current.x + dist[i][0];
+				int nc = current.y + dist[i][1];
+				
+				//범위 체크
+				if(nr < 0 || nr >= n || nc < 0 || nc >= m) {
+					continue;
+				}
+				if(map[nr][nc] == '2') continue;
+				
+				
+				if(map[nr][nc] == '1') { //방문하지 않았다면 넣기
+					queue.offer(new Location(nr, nc, current.cnt + 1));
+					map[nr][nc] = '2'; //방문체크
+				}else if(map[nr][nc] == '0') { //방문하지 않았다면 넣기
+					queue.offer(new Location(nr, nc, current.cnt));
+					map[nr][nc] = '2'; //방문체크
+				}else if(map[nr][nc] == '#') { //초코바를 찾았다면 cnt올리고 끝냄
+					queue.offer(new Location(nr, nc, current.cnt + 1));
+				}
+				
+			}
+//			for (char[] ch : map) {
+//				System.out.println(Arrays.toString(ch));
+//			}
+//			System.out.println();
+			
+		}//큐끝
+		System.out.println(current.cnt);
+		
+	}//메인끝
+
+}//클래스 끝
