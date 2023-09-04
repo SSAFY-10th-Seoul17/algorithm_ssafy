@@ -79,6 +79,8 @@
 |
 \---study13_#
         boj09084.java
+        boj12096.txt
         boj12761.java
         boj13265.java
+        boj20007.java
 ```
