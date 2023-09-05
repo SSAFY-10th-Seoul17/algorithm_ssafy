@@ -1,1 +1,0 @@
-this repository is to upload codes for practicing coding tests
