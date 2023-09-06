@@ -50,7 +50,7 @@ public class boj16397 {
                 return false;
             }
 
-            if(nowNum == G) { // 만드려는 숫자가 만들어짐.
+            if(nowNum == G) { // 만들려는 숫자가 만들어짐.
                 minCount = nowCount;
                 return true;
             }
