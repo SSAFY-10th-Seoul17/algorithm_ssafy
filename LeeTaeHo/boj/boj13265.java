@@ -42,7 +42,7 @@ public class boj13265 {
                 sb.append("possible").append("\n");
             }
         }
-        System.out.println(sb.toString());
+        System.out.println(sb);
     }
 
     private static void bfs(int start){
