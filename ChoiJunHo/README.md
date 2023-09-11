@@ -84,9 +84,13 @@
 |       boj13265.java
 |       boj20007.java
 |
-\---study14_#
-        boj01525.java
-        boj09024.java
-        boj16397.java
-        boj18428.java
++---study14_#
+|       boj01525.java
+|       boj09024.java
+|       boj16397.java
+|       boj18428.java
+|
+\---study15_#
+        boj02229.java
+        boj02666.java
 ```
