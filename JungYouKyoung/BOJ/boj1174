@@ -1,0 +1,42 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    static long[] array;
+    static int[] nums = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+    private static int n;
+    private static int currentIndex = 0; //현재인덱스
+
+    public static void main(String[] args) throws NumberFormatException, IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        n = Integer.parseInt(br.readLine());
+
+        array = new long[n];
+        dfs(0, 0);
+        Arrays.sort(array, 0, currentIndex);
+
+        if (currentIndex < n) {
+            System.out.println(-1);
+        } else {
+            System.out.println(array[n - 1]);
+        }
+    }
+
+    private static void dfs(long num, int index) {
+        if (currentIndex >= array.length) {
+        	//배열확장
+            array = Arrays.copyOf(array, array.length * 2);
+        }
+
+        if (index >= 10) {
+            if (currentIndex == 0 || array[currentIndex - 1] != num) {
+                array[currentIndex++] = num;
+            }
+            return;
+        }
+
+        dfs((num * 10 + nums[index]), index + 1); //다탐색
+        dfs(num, index + 1);
+    }
+}
