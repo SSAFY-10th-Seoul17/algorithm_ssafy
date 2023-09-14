@@ -25,7 +25,6 @@ public class boj5904 {
 
 		if (N >= n - mid) {
 			N = N - mid - (k + 3);
-
 		}
 		if (N >= mid && N < n - mid) {
 			if (N == mid) {
