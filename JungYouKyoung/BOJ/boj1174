@@ -36,7 +36,7 @@ public class Main {
             return;
         }
 
-        dfs((num * 10 + nums[index]), index + 1); //다탐색
+        dfs((num * 10 + nums[index]), index + 1); //다 탐색
         dfs(num, index + 1);
     }
 }
