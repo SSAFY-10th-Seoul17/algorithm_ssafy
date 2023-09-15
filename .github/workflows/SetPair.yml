@@ -3,76 +3,121 @@ name: Set Random Pair
 on:
   schedule:
     - cron: '0 9 * * 4'
-
+  
 env:
   MEMBERS: ${{ secrets.MEMBER }}
   ONLINE_MEMBERS: ${{ secrets.ONLINE }}
 
 jobs:
   check-changes:
+    if: github.repository == 'SSAFY-10th-Seoul17/algorithm_ssafy'
     runs-on: ubuntu-latest
     steps:
-      - name: Create teams and send to webhook
+      - name: Matching Pair 
         run: |
-          IFS=' ' read -r -a ALL_MEMBERS <<< "$MEMBERS"  # change this line
-          IFS=' ' read -r -a ONLINE <<< "$ONLINE_MEMBERS"  # add this line
-
-
-          NAMES=()
+          IFS=' ' read -r -a ALL_MEMBERS <<< "$MEMBERS"
+          IFS=' ' read -r -a ONLINE <<< "$ONLINE_MEMBERS"
+          
+          BEGINNING_NAMES=()
           for member in "${ALL_MEMBERS[@]}"; do
             if [[ ! " ${ONLINE[@]} " =~ " ${member} " ]]; then
-              NAMES+=("$member")
+              BEGINNING_NAMES+=("$member")
             fi
           done
           
-          MAX_TEAM_SIZE=4
-          COLUMN_SIZE=5
-          TEAM_COUNT=$(( ${#NAMES[@]} / ($MAX_TEAM_SIZE - 1) ))
+          echo "ONLINE TEAM Size : ${#ONLINE[@]}"
+          echo "BEGINNING_NAMES Size : ${#BEGINNING_NAMES[@]}"
 
-
-          NEXT_WEEK_DATE=$(date --date="next week" +%-m)
-          NEXT_WEEK_NUM=$(($(date -d "next week" "+%U") + 1))
+          SHUFFLED_NAMES=()
           
+          for ((i=1; ${#BEGINNING_NAMES[@]} != 0; i++)); 
+          do
+            RANDOM_INDEX=$(($RANDOM+$RANDOM))
+            INDEX=$(( RANDOM_INDEX % ${#BEGINNING_NAMES[@]} ))
+            SHUFFLED_NAMES[i]="${BEGINNING_NAMES[$INDEX]}"
+            BEGINNING_NAMES=(${BEGINNING_NAMES[@]:0:$INDEX} ${BEGINNING_NAMES[@]:$((INDEX+1))})
+          done
           
-          if [ $NEXT_WEEK_DATE -eq 8 ] && [ $NEXT_WEEK_NUM -eq 35 ]; then
-            NEXT_WEEK_NUM=5
-          else
-            NEXT_WEEK_NUM=$(($NEXT_WEEK_NUM % 4 + 1))
+          echo "SHUFFLED_NAMES : ${SHUFFLED_NAMES[@]}"
+          SHUFFLED_NAMES=($(printf "%s\n" "${SHUFFLED_NAMES[@]}" | shuf))
+          echo "SHUFFLED_NAMES : ${SHUFFLED_NAMES[@]}"
+          
+          DEFAULT_TEAM_SIZE=3
+          COLUMN_SIZE=$DEFAULT_TEAM_SIZE
+          if [[ $((${#SHUFFLED_NAMES[@]} % $DEFAULT_TEAM_SIZE)) -ne 0 ]]; then
+            ((COLUMN_SIZE++))
           fi
           
-          MESSAGE="\"| Pair |$NEXT_WEEK_DATE 월 | $NEXT_WEEK_NUM 주차 ||| 비고 |\\n"
-          MESSAGE+="|---|---|---|---|---|---|\\n"
+          TEAM_COUNT=$(( ${#SHUFFLED_NAMES[@]} / DEFAULT_TEAM_SIZE ))
+          declare -A TEAMS
+          
+          for ((i=0; i<=COLUMN_SIZE; i++)); 
+          do
+            for ((j=1; j<=TEAM_COUNT; j++)); 
+            do
+              if [[ ${#SHUFFLED_NAMES[@]} == 0 ]]; then
+                  TEAMS["TEAM_$j"]="${TEAMS["TEAM_$j"]} |"
+                  continue
+              fi
+          
+              RANDOM_INDEX=$RANDOM
+              INDEX=$(( RANDOM_INDEX % ${#SHUFFLED_NAMES[@]} ))
+              TEAMS["TEAM_$j"]="${TEAMS["TEAM_$j"]} | ${SHUFFLED_NAMES[$INDEX]}"
+              echo "RANDOM : $RANDOM_INDEX / RANDOM_INDEX : $INDEX / TEAM_$j 추가: ${SHUFFLED_NAMES[$INDEX]}"
+              SHUFFLED_NAMES=(${SHUFFLED_NAMES[@]:0:$INDEX} ${SHUFFLED_NAMES[@]:$((INDEX+1))})
+            done
+          done
+          
+          for ((j=1; j<=TEAM_COUNT; j++)); do
+            echo "TEAM_$j: ${TEAMS["TEAM_$j"]}"
+          done
+      
+
+        
+          NEXT_WEEK_MONTH=$(date --date="next week" +%-m)
+          NEXT_WEEK_DATE=$(date --date="next week" +%-d)
+          NEXT_WEEK_NUM=$((NEXT_WEEK_DATE/7 + 1))
+          
+          if [ $((NEXT_WEEK_DATE % 7)) -eq 0 ]; then
+            NEXT_WEEK_NUM=$((NEXT_WEEK_NUM - 1))
+          fi
+          echo "$NEXT_WEEK_MONTH 월 $NEXT_WEEK_DATE 일 $NEXT_WEEK_NUM 주차"
+          
+          
+          
+          MESSAGE="\"| Pair |$NEXT_WEEK_MONTH 월 | $NEXT_WEEK_NUM 주차 |\\n"
+          
+          MESSAGE+="|"
+          for ((i=1; i<=$COLUMN_SIZE; i++))
+          do
+            MESSAGE+="---|"
+          done
+          MESSAGE+="\\n"
+          
           for ((i=1; i<=$TEAM_COUNT; i++))
             do
-              MESSAGE+="|$i.|"
-              for ((j=1; j<=$MAX_TEAM_SIZE && ${#NAMES[@]} > 0; j++))
-                do
-          
-                  INDEX=$(( RANDOM % ${#NAMES[@]} ))
-                  MESSAGE+=" ${NAMES[$INDEX]} |"
-                  NAMES=(${NAMES[@]:0:$INDEX} ${NAMES[@]:$(( $INDEX + 1 ))})
-                done
-          
-              for ((j=1; j<=$COLUMN_SIZE - $MAX_TEAM_SIZE; j++))
-                do
-                  MESSAGE+=" |"
-                done
+              MESSAGE+="|$i."
+              MESSAGE+="${TEAMS["TEAM_$i"]}"
               MESSAGE+="\\n"
-          
-              if (( ${#NAMES[@]} % (($MAX_TEAM_SIZE - 1) * ( $TEAM_COUNT - $i)) == 0 )); then
-                MAX_TEAM_SIZE=$(( MAX_TEAM_SIZE - 1 ))
-              fi
             done
+          MESSAGE+="|\\n"
+          MESSAGE+="\\n"
           
-          MESSAGE+="||"
-          for ((i=0; i<$COLUMN_SIZE -1 ; i++))
+          
+          MESSAGE+="|Online|\\n"
+          
+          MESSAGE+="|"
+          for ((i=0; i<${#ONLINE[@]}; i++)); 
           do
-            if (( i > ${#ONLINE[@]} )); then
-              MESSAGE+="|"
-            else
-              MESSAGE+="${ONLINE[$i]}|"
-            fi
+            MESSAGE+="---|"
           done
-          MESSAGE+="온라인|\\n\""
+          MESSAGE+="\\n|"
+          for ((i=0; i<${#ONLINE[@]}; i++)); 
+          do
+            MESSAGE+="${ONLINE[$i]}|"
+          done
+          MESSAGE+="\""
           
+      
           curl -X POST -H 'Content-type: application/json' --data "{\"text\": $MESSAGE}" ${{ secrets.WEBHOOK }}
+        
