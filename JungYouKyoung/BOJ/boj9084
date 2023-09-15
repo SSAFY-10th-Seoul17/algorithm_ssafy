@@ -1,0 +1,49 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+
+/**
+ * 동전
+ * 
+ */
+public class Main {
+
+	public static void main(String[] args) throws NumberFormatException, IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringBuilder sb = new StringBuilder();
+		
+		int T = Integer.parseInt(br.readLine());
+		for (int i = 0; i < T; i++) {
+			int N = Integer.parseInt(br.readLine());//동전 가지수
+			int[] coins = new int[N];
+			
+			StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+			for (int j = 0; j < N; j++) {
+				coins[j] = Integer.parseInt(st.nextToken()); //오름차순으로 주어짐
+			} //동전 수 입력 완료
+			
+			int M = Integer.parseInt(br.readLine()); //만들어야하는 금액
+			
+			//0-M까지의 금액 : 0원, 1원, 2원, 3원, 4원, ... M-1원, M원
+			int[] accounts = new int[M+1]; //초기화는 0
+			accounts[0] = 1;
+			
+			for (int j = 0; j < coins.length; j++) {
+				int current = coins[j];// 확인할 동전 금액
+				for (int k = current; k < accounts.length; k++) { //0원부터 넣기
+					//만들어야 할 금액 k,
+					//현재 금액 current, dp[k-current]
+					accounts[k] += accounts[k-current]; 
+				}
+				
+			} //동전 종료
+//			System.out.println(Arrays.toString(accounts));
+			sb.append(accounts[M]).append("\n");
+			
+		}//end tc
+		System.out.println(sb.toString());
+		
+	}//end main
+
+}//end class
