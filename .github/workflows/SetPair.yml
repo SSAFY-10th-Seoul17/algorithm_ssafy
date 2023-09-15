@@ -10,6 +10,7 @@ env:
 
 jobs:
   check-changes:
+    if: github.repository == 'SSAFY-10th-Seoul17/algorithm_ssafy'
     runs-on: ubuntu-latest
     steps:
       - name: Matching Pair 
