@@ -24,13 +24,7 @@ public class boj1780 {
 
 	private static void solve(int x, int y, int size) {
 		if (sameNum(x, y, size)) {
-			if (map[x][y] == -1) {
-				papers[0]++;
-			} else if (map[x][y] == 0) {
-				papers[1]++;
-			} else {
-				papers[2]++;
-			}
+			papers[map[x][y] + 1]++;
 			return;
 		}
 
