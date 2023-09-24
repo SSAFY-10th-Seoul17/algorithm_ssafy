@@ -3,7 +3,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 /**
- * [boj] 2711
+ * [boj] 27114. 조교의 맹연습
  */
 public class boj27114 {
     /**
