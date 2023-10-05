@@ -109,8 +109,14 @@
 |       boj17425.java
 |       boj27977.java
 |
-\---study19_0925
-        boj20917.java
-        boj27114.java
-        boj28333.java
++---study19_0925
+|       boj20917.java
+|       boj27114.java
+|       boj28333.java
+|
+\---study20_1005
+        boj02660.java
+        boj14699.java
+        boj15817.java
+        boj18427.java
 ```
