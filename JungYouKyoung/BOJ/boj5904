@@ -20,8 +20,8 @@ public class Main {
 			priorValue = 2 * priorValue + (cnt++) + 3;
 		}
 
-//		System.out.println(S); //10 => S(1) 길이 값 //
-//		System.out.println(cnt); //2 => S(2) 부터 탐색해야함 //
+//		System.out.println(S); //10 => S(1) 길이 값
+//		System.out.println(cnt); //2 => S(2) 부터 탐색해야함
 
 		solve(priorValue, cnt);
 
