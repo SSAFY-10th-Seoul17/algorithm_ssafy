@@ -1,0 +1,82 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayDeque;
+import java.util.Queue;
+import java.util.StringTokenizer;
+
+public class boj17265 {
+	
+	static class Location {
+		int x, y;
+		char value;
+		int res;
+
+		public Location(int x, int y, char value, int res) {
+			this.x = x;
+			this.y = y;
+			this.value = value;
+			this.res = res;
+		}
+	}
+
+	private static int n;
+	private static char[][] map;
+	static int[][] dist = {{0, 1}, {1, 0}}; //오른쪽, 아래
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		n = Integer.parseInt(st.nextToken());
+		map = new char[n][n];
+		for (int i = 0; i < n; i++) {
+			st = new StringTokenizer(br.readLine());
+			for (int j = 0; j < n; j++) {
+				map[i][j] = st.nextToken().charAt(0);
+			}
+		}//입력끝
+		
+		Queue<Location> queue = new ArrayDeque<Location>();
+		queue.offer(new Location(0, 0, map[0][0], map[0][0]-'0')); //첫점(r, c), value, 지금까지 계산된 값
+		
+		int max = Integer.MIN_VALUE;
+		int min = Integer.MAX_VALUE;
+		
+		while(!queue.isEmpty()) {
+			Location current = queue.poll(); //현재점 꺼냄
+			
+			if(current.x == n-1 && current.y == n-1) {
+				max = Math.max(max, current.res);
+				min = Math.min(min, current.res);
+			}
+			
+			for (int i = 0; i < dist.length; i++) {
+				int nr = current.x + dist[i][0];
+				int nc = current.y + dist[i][1];
+				int nres = current.res;
+				
+				//범위 체크
+				if(nr < 0 || nr >= n || nc < 0 || nc >= n) continue;
+				// 만약 현재가 숫자면 다음은 연산자, 연산자였으면 다음은 숫자여야함
+				char nv = map[nr][nc];
+				
+				//현재가 연산자면 다음은 숫자
+				if(current.value == '+') {
+					nres = nres + (nv - '0');
+				}else if(current.value == '-') {
+					nres = nres - (nv - '0');
+				}else if(current.value == '*') {
+					nres = nres * (nv - '0');
+				}
+				
+				//일단 인접한 정점 다 넣기
+				queue.offer(new Location(nr, nc, nv, nres));
+			}
+			
+		}//큐끝
+		System.out.println(max + " " + min);
+		
+	}//메인 끝
+
+}//클래스 끝
