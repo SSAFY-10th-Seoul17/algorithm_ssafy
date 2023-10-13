@@ -13,21 +13,21 @@ public class boj5904_2 {
 
     private static String solve(int N) {
 
-        int index = 0;
+        int index = 3;
         int length = 3;
 
         while (length < N) {
             index++;  // 0 3
-            length = length * 2 + index + 3;
+            length = length * 2 + index;
         }
 
         while (length > 3) {
-            length = (length - (index + 3)) / 2;
+            length = (length - (index)) / 2;
 
-            if (length + index + 3 >= N && length < N ) {
+            if (length + index >= N && length < N) {
                 return N - length == 1 ? "m" : "o";
-            }else if(length < N){
-                N -= length + index + 3;
+            } else if (length < N) {
+                N -= length + index;
             }
             index--;
         }
