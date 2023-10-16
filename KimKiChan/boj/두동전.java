@@ -1,5 +1,3 @@
-package boj;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayDeque;
@@ -11,7 +9,6 @@ public class 두동전 {
 	private static int n;
 	private static int m;
 	private static char[][] board;
-	private static int min;
 
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -34,75 +31,74 @@ public class 두동전 {
 		br.close(); // 입력 종료
 		
 		// 두 동전 중 하나만 보드에서 떨어뜨리기
-		move(coins);
+		int min = move(coins);
 		
-		if(min == Integer.MAX_VALUE) {
-			System.out.println(-1);
-		}else {
-			System.out.println(min);
-		}
+		System.out.println(min);
 		
 	}
 	
-	private static void move(Position[] coins) { // bfs
+	private static int move(Position[] coins) { // bfs
 		int[][] dxdy = {{-1,0}, {1,0}, {0,-1}, {0, 1}};
-		min = Integer.MAX_VALUE;
+		int move = 1;
+		
+		boolean[][][][] visited = new boolean[n][m][n][m];
+		visited[coins[0].x][coins[0].y][coins[1].x][coins[1].y] = true;
 		
 		Deque<Position[]> dq = new ArrayDeque<>();
 		dq.offer(coins);
+
 		while(!dq.isEmpty()) {
-			Position coin0 = dq.peek()[0];
-			Position coin1 = dq.peek()[1];
-			dq.poll();
-			
-			if(coin0.move >= 10 && coin1.move >= 10) {
-				return;
-			}
-			
-			for(int dir = 0; dir < 4; dir++) { // coin0
-				int nx0 = coin0.x + dxdy[dir][0];
-				int ny0 = coin0.y + dxdy[dir][1];
+			int size = dq.size();
+			while(size-- > 0) {
+				Position coin0 = dq.peek()[0];
+				Position coin1 = dq.peek()[1];
+				dq.poll();
 				
-				int nx1 = coin1.x + dxdy[dir][0];
-				int ny1 = coin1.y + dxdy[dir][1];
+				for(int dir = 0; dir < 4; dir++) {
+					int nx0 = coin0.x + dxdy[dir][0];
+					int ny0 = coin0.y + dxdy[dir][1];
 					
-				//둘다 나가서는 안된다
-				boolean out0 = outOfRange(nx0, ny0);
-				boolean out1 = outOfRange(nx1, ny1);
-				
-				if(out0 && out1) continue; // 둘 다 밖
-				else if(!out0 && !out1) { // 둘 다 안
-					if(coin0.move == 9) continue;
-					Position[] nextCoin = new Position[2];
-					//벽
-					if(board[nx0][ny0] != '#') {
+					int nx1 = coin1.x + dxdy[dir][0];
+					int ny1 = coin1.y + dxdy[dir][1];
+					
+					//둘다 나가서는 안된다
+					boolean out0 = outOfRange(nx0, ny0);
+					boolean out1 = outOfRange(nx1, ny1);
+					
+					if(out0 && out1) continue; // 둘 다 밖
+					else if(!out0 && !out1) { // 둘 다 안
+						Position[] nextCoin = new Position[2];
+						//벽
+						if(board[nx0][ny0] == '#') { // 제자리
+							nx0 = coin0.x;
+							ny0 = coin0.y;
+						}
 						nextCoin[0] = new Position(nx0, ny0);
-					}else {
-						nextCoin[0] = new Position(coin0.x, coin0.y);
-					}
-					nextCoin[0].move = coin0.move+1;
-					
-					if(board[nx1][ny1] != '#') {
+						
+						if(board[nx1][ny1] == '#') { // 제자리
+							nx1 = coin1.x;
+							ny1 = coin1.y;
+						}
 						nextCoin[1] = new Position(nx1, ny1);
+
+						if(visited[nx0][ny0][nx1][ny1]) continue;
+						dq.offer(nextCoin);
+						
+						visited[nx0][ny0][nx1][ny1] = true;
 					}else {
-						nextCoin[1] = new Position(coin1.x, coin1.y);
-					}
-					nextCoin[1].move = coin1.move+1;
-					
-					dq.offer(nextCoin);
-				}else { // 둘 중 하나가 나갈 때
-					if(min > coin0.move+1) {
-						min = coin0.move+1;
-						return;
+						return move;
 					}
 				}
-				
+			
 			}
-			
-			
-		}
+			move++;
+			if(move > 10) {
+				break;
+			}
 
-		return;
+		}
+		
+		return -1;
 	}
 	
 	private static boolean outOfRange(int x, int y) {
@@ -115,12 +111,10 @@ public class 두동전 {
 	private static class Position{
 		int x;
 		int y;
-		int move;
 		public Position(int x, int y) {
 			super();
 			this.x = x;
 			this.y = y;
-			this.move = 0;
 		}
 	}
 }
