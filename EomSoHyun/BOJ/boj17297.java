@@ -8,8 +8,7 @@ public class Main {
 
     static int m;
     static List<Integer> nums;
-    static String str1 = "Messi";
-    static String str2 = "Messi Gimossi";
+    static String str = "Messi Gimossi";
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -45,12 +44,12 @@ public class Main {
 
     public static void Messi(int m, int i) {
         if (i == 1) {
-            System.out.println(str1.charAt(m-1));
+            System.out.println(str.charAt(m-1));
             return;
         }
 
         else if (i == 2) {
-            char ch = str2.charAt(m-1);
+            char ch = str.charAt(m-1);
             if (ch == ' ') {
                 System.out.println("Messi Messi Gimossi");
             }
