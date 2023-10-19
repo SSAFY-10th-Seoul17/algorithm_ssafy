@@ -46,8 +46,8 @@ public class 좋은수열 {
 			left = new int[i];
 			right = new int[i];
 			for(int j = 0; j < i; j++) {
-				left[j] = arr[index-j];
-				right[j] = arr[index-j-i];
+				left[j] = arr[index-j-i];
+				right[j] = arr[index-j];
 			}
 			if(Arrays.equals(left, right)) return false;
 		}
