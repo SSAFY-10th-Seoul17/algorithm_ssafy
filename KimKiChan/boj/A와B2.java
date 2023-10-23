@@ -17,6 +17,7 @@ public class A와B2 {
 		
 		if(able) System.out.println(1);
 		else System.out.println(0);
+		
 	}
 
 	private static void sol(String s, String t) {

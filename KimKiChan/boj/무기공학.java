@@ -33,6 +33,7 @@ public class 무기공학 {
 		
 		System.out.println(maxScore);
 		
+		
 	}
 
 	private static void sol(int x, int y, int score) {
