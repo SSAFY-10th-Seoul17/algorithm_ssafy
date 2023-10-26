@@ -39,5 +39,6 @@ public class 저울 {
 			sb.append(count).append("\n");
 		}
 		System.out.println(sb);
+		
 	}
 }
