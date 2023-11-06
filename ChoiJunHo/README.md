@@ -116,9 +116,40 @@
 |       boj27114.java
 |       boj28333.java
 |
-\---study20_1005
-        boj02660.java
-        boj14699.java
-        boj15817.java
-        boj18427.java
++---study20_1005
+|       boj02660.java
+|       boj14699.java
+|       boj15817.java
+|       boj18427.java
+|
++---study21_1012
+|       boj02792.java
+|       boj16234.java
+|       boj16719.java
+|
++---study22_1016
+|       boj16197.java
+|       boj17951.java
+|
++---study23_1019
+|       #.md
+|
++---study24_1023
+|       boj01275.java
+|       boj18430.java
+|
++---study25_1026
+|       boj16120.java
+|
++---study26_1030
+|       boj22865.java
+|
++---study27_1102
+|       boj24891.java
+|       boj30024.java
+|
+\---study28_1106
+        boj11037.java
+        boj22942.java
+        boj30396.java
 ```
