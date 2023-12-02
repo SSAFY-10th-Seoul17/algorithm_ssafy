@@ -1,8 +1,8 @@
 name: Set Random Pair
 
-on:
-  schedule:
-    - cron: '0 9 * * 4'
+# on:
+#   schedule:
+#     - cron: '0 9 * * 4'
   
 env:
   MEMBERS: ${{ secrets.MEMBER }}
