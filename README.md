@@ -163,8 +163,8 @@ PR Comment :
 ### 결과
 
 
-| 8월 | 9월 | 10월 |
-| -------- | -------- | -------- |
-| <img src="https://github.com/SSAFY-10th-Seoul17/algorithm_ssafy/blob/main/.docs/outcome/8월 우수 스터디.png" width="300"> | <img src="https://github.com/SSAFY-10th-Seoul17/algorithm_ssafy/blob/main/.docs/outcome/9월 우수 스터디.jpg" width="300"> | <img src="https://github.com/SSAFY-10th-Seoul17/algorithm_ssafy/blob/main/.docs/outcome/10월 우수 스터디.png" width="300"> |
+| 8월 | 9월 | 10월 | 11월 |
+| -------- | -------- | -------- | -------- |
+| <img src="https://github.com/SSAFY-10th-Seoul17/algorithm_ssafy/blob/main/.docs/outcome/8월 우수 스터디.png" width="300"> | <img src="https://github.com/SSAFY-10th-Seoul17/algorithm_ssafy/blob/main/.docs/outcome/9월 우수 스터디.jpg" width="300"> | <img src="https://github.com/SSAFY-10th-Seoul17/algorithm_ssafy/blob/main/.docs/outcome/10월 우수 스터디.png" width="300"> |<img src="https://github.com/SSAFY-10th-Seoul17/algorithm_ssafy/blob/main/.docs/outcome/11월 우수 스터디.png" width="300"> |
 
 
